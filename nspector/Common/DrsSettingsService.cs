@@ -272,6 +272,39 @@ namespace nspector.Common
             removeFromModified = tmpRemoveFromModified;
         }
 
+        public void DeleteValue(string profileName, uint settingId, out bool removeFromModified)
+        {
+            var tmpRemoveFromModified = false;
+
+            DrsSession((hSession) =>
+            {
+                var hProfile = GetProfileHandle(hSession, profileName);
+
+                if (hProfile != IntPtr.Zero)
+                {
+                    int dropCount = 0;
+                    var settings = GetProfileSettings(hSession, hProfile);
+                    foreach (var setting in settings)
+                    {
+                        if (setting.settingId != settingId) continue;
+                        
+                        if (setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
+                        {
+                            if (nvw.DRS_DeleteProfileSetting(hSession, hProfile, setting.settingId) == NvAPI_Status.NVAPI_OK)
+                            {
+                                dropCount++;
+                                break;
+                            }
+                        }
+                    }
+                    tmpRemoveFromModified = (dropCount == 0);
+                    SaveSettings(hSession);
+                }
+            });
+
+            removeFromModified = tmpRemoveFromModified;
+        }
+
         public uint GetDwordValueFromProfile(string profileName, uint settingId, bool returnDefaultValue = false, bool forceDedicatedScope = false)
         {
             return DrsSession((hSession) =>
@@ -443,6 +476,7 @@ namespace nspector.Common
                 State = settingState,
                 IsStringValue = settingMeta.SettingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE,
                 IsApiExposed = settingMeta.IsApiExposed,
+                IsSettingHidden = settingMeta.IsSettingHidden,
             };
         }
 
@@ -469,6 +503,8 @@ namespace nspector.Common
 
                 foreach (var settingId in settingIds)
                 {
+                    if (settingId == 0) continue;
+
                     var setting = ReadSetting(hSession, hProfile, settingId);
                     if (setting != null)
                         result.Add(CreateSettingItem(setting.Value));
