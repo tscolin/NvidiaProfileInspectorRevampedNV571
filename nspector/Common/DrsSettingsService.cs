@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -108,7 +108,7 @@ namespace nspector.Common
                     File.WriteAllText(tmpFileName, tmpFileContent);
                 });
 
-                if (tmpFileContent != "")
+                if (!string.IsNullOrEmpty(tmpFileContent))
                 {
                     DrsSession((hSession) =>
                     {
