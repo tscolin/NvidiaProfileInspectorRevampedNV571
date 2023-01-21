@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using nspector.Common.Meta;
@@ -173,7 +173,7 @@ namespace nspector.Common
             }
 
             var atmp = a.FirstOrDefault();
-            if (atmp != null && atmp is IComparable)
+            if (atmp is IComparable)
                 return a.OrderBy(x => x.Value).ToList();
             else
                 return a.ToList();
