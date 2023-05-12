@@ -530,8 +530,12 @@ namespace nspector
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
 
+        public static double ScaleFactor = 1;
+
         private void SetupDpiAdjustments()
         {
+            ScaleFactor = lblWidth330.Width / 330;
+
             chSettingID.Width = lblWidth330.Width;
             chSettingValueHex.Width = lblWidth96.Width;
         }
@@ -1154,7 +1158,7 @@ namespace nspector
             if (files.Length == 1)
             {
                 var fileInfo = new FileInfo(files[0]);
-                if (fileInfo.Extension.ToLower().Equals(".nip"))
+                if (fileInfo.Extension.ToLowerInvariant().Equals(".nip"))
                 {
                     ImportProfiles(fileInfo.FullName);
                     return;
@@ -1291,11 +1295,11 @@ namespace nspector
             string inputString = "";
             if (InputBox.Show("Search Setting", "Please enter setting name:", ref inputString, new List<string>(), "", 2048) == System.Windows.Forms.DialogResult.OK)
             {
-                var lowerInput = inputString.Trim().ToLower();
+                var lowerInput = inputString.Trim().ToLowerInvariant();
                 lvSettings.BeginUpdate();
                 foreach(ListViewItem itm in lvSettings.Items)
                 {
-                    if (!itm.Text.ToLower().Contains(lowerInput))
+                    if (!itm.Text.ToLowerInvariant().Contains(lowerInput))
                     {
                         itm.Remove();
                     }
