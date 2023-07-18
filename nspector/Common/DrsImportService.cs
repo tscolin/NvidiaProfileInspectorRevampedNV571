@@ -134,8 +134,7 @@ namespace nspector.Common
                             }
 
                             sbFailedProfilesMessage.AppendLine(string.Format("Failed to import profile '{0}'", profile.ProfileName));
-                            var appEx = nex as NvapiAddApplicationException;
-                            if (appEx != null)
+                            if (nex is NvapiAddApplicationException appEx)
                             {
                                 var profilesWithThisApp = _ScannerService.FindProfilesUsingApplication(appEx.ApplicationName);
                                 sbFailedProfilesMessage.AppendLine(string.Format("- application '{0}' is already in use by profile '{1}'", appEx.ApplicationName, profilesWithThisApp));
