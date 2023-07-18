@@ -83,7 +83,7 @@ namespace nspector
             var item = new ListViewItem(settingName);
             item.Tag = setting.SettingId;
             item.Group = group;
-            
+
             item.SubItems.Add(setting.ValueText);
             item.SubItems.Add(setting.ValueRaw);
 
@@ -113,12 +113,12 @@ namespace nspector
             return item;
         }
 
-        private void RefreshApplicationsCombosAndText(Dictionary<string,string> applications)
+        private void RefreshApplicationsCombosAndText(Dictionary<string, string> applications)
         {
             lblApplications.Text = "";
             tssbRemoveApplication.DropDownItems.Clear();
 
-            lblApplications.Text = " " + string.Join(", ", applications.Select(x=>x.Value));
+            lblApplications.Text = " " + string.Join(", ", applications.Select(x => x.Value));
             foreach (var app in applications)
             {
                 var item = tssbRemoveApplication.DropDownItems.Add(app.Value, Properties.Resources.ieframe_1_18212);
@@ -148,7 +148,7 @@ namespace nspector
             {
                 lvSettings.Items.Clear();
                 lvSettings.Groups.Clear();
-                var applications = new Dictionary<string,string>();
+                var applications = new Dictionary<string, string>();
 
                 _currentProfileSettingItems = _drs.GetSettingsForProfile(_CurrentProfile, GetSettingViewMode(), ref applications);
                 RefreshApplicationsCombosAndText(applications);
@@ -243,7 +243,7 @@ namespace nspector
 
                             tsbBitValueEditor.Enabled = valueNames.Count > 0;
 
-                            
+
                         }
 
                         if (settingMeta.SettingType == Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE && settingMeta.StringValues != null)
@@ -756,7 +756,7 @@ namespace nspector
             {
                 await _scanner.ScanProfileSettingsAsync(true, progressHandler, _scannerCancelationTokenSource.Token);
             }
-                        
+
             RefreshModifiesProfilesDropDown();
             tsbModifiedProfiles.Enabled = true;
 
@@ -1297,7 +1297,7 @@ namespace nspector
             {
                 var lowerInput = inputString.Trim().ToLowerInvariant();
                 lvSettings.BeginUpdate();
-                foreach(ListViewItem itm in lvSettings.Items)
+                foreach (ListViewItem itm in lvSettings.Items)
                 {
                     if (!itm.Text.ToLowerInvariant().Contains(lowerInput))
                     {
@@ -1306,7 +1306,7 @@ namespace nspector
                 }
                 lvSettings.EndUpdate();
             }
-            
+
         }
 
         private void EnableDevmode()
@@ -1342,7 +1342,7 @@ namespace nspector
                         if (meta.SettingType != NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE) continue;
 
                         var wasNotSet = new int[] { 1, 2, 3 }.Contains(item.ImageIndex);
-                        
+
                         if (wasNotSet)
                         {
                             _drs.SetDwordValueToProfile(_CurrentProfile, settingId, 0x0);
@@ -1388,7 +1388,7 @@ namespace nspector
                 {
                     if (item.ImageIndex != 0) continue;
 
-                    if(!groupTitleAdded)
+                    if (!groupTitleAdded)
                     {
                         sbSettings.AppendFormat("\r\n[{0}]\r\n", group.Header);
                         groupTitleAdded = true;
@@ -1396,7 +1396,7 @@ namespace nspector
                     sbSettings.AppendFormat("{0,-40} {1}\r\n", item.Text, item.SubItems[1].Text);
                 }
             }
-            
+
             Clipboard.SetText(sbSettings.ToString());
 
         }

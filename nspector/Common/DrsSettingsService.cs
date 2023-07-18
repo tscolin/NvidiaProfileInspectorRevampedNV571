@@ -287,7 +287,7 @@ namespace nspector.Common
                     foreach (var setting in settings)
                     {
                         if (setting.settingId != settingId) continue;
-                        
+
                         if (setting.settingLocation == NVDRS_SETTING_LOCATION.NVDRS_CURRENT_PROFILE_LOCATION)
                         {
                             if (nvw.DRS_DeleteProfileSetting(hSession, hProfile, setting.settingId) == NvAPI_Status.NVAPI_OK)

@@ -28,7 +28,7 @@ namespace nspector.Common.CustomSettings
 
         internal uint? DefaultValue
         {
-            get => string.IsNullOrEmpty(OverrideDefault) ? null : (uint? )Convert.ToUInt32(OverrideDefault.Trim(), 16);
+            get => string.IsNullOrEmpty(OverrideDefault) ? null : (uint?)Convert.ToUInt32(OverrideDefault.Trim(), 16);
         }
 
     }
