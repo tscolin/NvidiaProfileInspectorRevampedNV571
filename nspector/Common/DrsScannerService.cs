@@ -1,4 +1,4 @@
-﻿using nspector.Common.Helper;
+using nspector.Common.Helper;
 using nspector.Native.NVAPI2;
 using System;
 using System.Collections.Generic;
@@ -76,8 +76,7 @@ namespace nspector.Common
 
         private int CalcPercent(int current, int max)
         {
-            return (current > 0) ? (int)Math.Round((current * 100f) / max) : 0; ;
-        }
+            return (current > 0) ? (int)Math.Round((current * 100f) / max) : 0;         }
 
         public async Task ScanProfileSettingsAsync(bool justModified, IProgress<int> progress, CancellationToken token = default(CancellationToken))
         {
