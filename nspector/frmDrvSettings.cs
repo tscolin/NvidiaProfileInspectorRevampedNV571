@@ -1199,7 +1199,7 @@ namespace nspector
                 var settingId = ((uint)lvSettings.SelectedItems[0].Tag);
                 var settingName = lvSettings.SelectedItems[0].Text;
                 //Clipboard.SetText(string.Format($"0x{settingId:X8} {settingName}"));
-                Clipboard.SetText(string.Format($"{settingName}"));
+                Clipboard.SetText($"{settingName}");
             }
         }
 
