@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,10 +30,7 @@ namespace nspector.Common
 
         internal void ExportAllProfilesToNvidiaTextFile(string filename)
         {
-            DrsSession((hSession) =>
-            {
-                SaveSettingsFileEx(hSession, filename);
-            });
+            DrsSession((hSession) => SaveSettingsFileEx(hSession, filename));
         }
 
         internal void ImportAllProfilesFromNvidiaTextFile(string filename)
