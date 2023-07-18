@@ -126,7 +126,7 @@ namespace nspector.Common.Meta
             var setting = customSettings.Settings
                .FirstOrDefault(x => x.SettingId.Equals(settingId));
 
-            return setting?.Hidden ?? false;
+            return setting?.Hidden == true;
         }
 
         public string GetDescription(uint settingId)
