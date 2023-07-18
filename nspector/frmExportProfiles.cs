@@ -27,15 +27,15 @@ namespace nspector
             updateProfileList();
             this.ShowDialog();
         }
-        
+
 
         private void updateProfileList()
         {
             lvProfiles.Items.Clear();
-            
+
             if (settingsOwner != null)
             {
-                foreach(string mp in DrsServiceLocator.ScannerService.ModifiedProfiles)
+                foreach (string mp in DrsServiceLocator.ScannerService.ModifiedProfiles)
                 {
                     lvProfiles.Items.Add(mp);
                 }
@@ -50,7 +50,7 @@ namespace nspector
 
         private void btnSelAll_Click(object sender, EventArgs e)
         {
-            for(int i=0;i<lvProfiles.Items.Count;i++)
+            for (int i = 0; i < lvProfiles.Items.Count; i++)
             {
                 lvProfiles.Items[i].Checked = true;
             }
@@ -103,7 +103,7 @@ namespace nspector
         private void lvProfiles_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             int cc = 0;
-            for (int i = 0; i < lvProfiles.Items.Count;i++ )
+            for (int i = 0; i < lvProfiles.Items.Count; i++)
                 if (lvProfiles.Items[i].Checked)
                     cc++;
 
@@ -113,7 +113,7 @@ namespace nspector
                 btnExport.Enabled = false;
         }
 
-       
+
 
     }
 

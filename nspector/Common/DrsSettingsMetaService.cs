@@ -428,7 +428,7 @@ namespace nspector.Common
         {
             var csn = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.CustomSettings);
             var csnDescription = csn != null ? ((CustomSettingMetaService)csn.Service).GetDescription(settingId) ?? "" : "";
-            
+
             var refs = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.ReferenceSettings);
             var refsDescription = refs != null ? ((CustomSettingMetaService)refs.Service).GetDescription(settingId) ?? "" : "";
 
