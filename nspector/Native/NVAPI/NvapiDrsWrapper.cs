@@ -247,7 +247,7 @@ namespace nspector.Native.NVAPI2
                 if (value != null)
                 {
                     Buffer.BlockCopy(BitConverter.GetBytes(value.Length), 0, rawData, 0, 4);
-                    Buffer.BlockCopy(value, 0, rawData, 4, value.Length);
+                    Buffer.BlockCopy(value, 0, rawData, 4, Buffer.ByteLength(value));
                 }
             }
         }
@@ -271,7 +271,7 @@ namespace nspector.Native.NVAPI2
             {
                 rawData = new byte[4100];
                 var bytesRaw = Encoding.Unicode.GetBytes(value);
-                Buffer.BlockCopy(bytesRaw, 0, rawData, 0, bytesRaw.Length);
+                Buffer.BlockCopy(bytesRaw, 0, rawData, 0, Buffer.ByteLength(bytesRaw));
             }
         }
 
@@ -283,7 +283,7 @@ namespace nspector.Native.NVAPI2
             {
                 rawData = new byte[4100];
                 var bytesRaw = Encoding.Default.GetBytes(value);
-                Buffer.BlockCopy(bytesRaw, 0, rawData, 0, bytesRaw.Length);
+                Buffer.BlockCopy(bytesRaw, 0, rawData, 0, Buffer.ByteLength(bytesRaw));
             }
         }
 
