@@ -217,10 +217,10 @@ namespace nspector
                         }
 
 
-                        rc.X = rc.X + ec.Control.Margin.Left;
-                        rc.Y = rc.Y + ec.Control.Margin.Top;
-                        rc.Width = rc.Width - ec.Control.Margin.Right;
-                        rc.Height = rc.Height - ec.Control.Margin.Bottom;
+                        rc.X += ec.Control.Margin.Left;
+                        rc.Y += ec.Control.Margin.Top;
+                        rc.Width -= ec.Control.Margin.Right;
+                        rc.Height -= ec.Control.Margin.Bottom;
 
                         ec.Control.Bounds = rc;
 
