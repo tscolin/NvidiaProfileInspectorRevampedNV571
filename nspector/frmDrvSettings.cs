@@ -1341,7 +1341,7 @@ namespace nspector
                         var meta = _meta.GetSettingMeta(settingId);
                         if (meta.SettingType != NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE) continue;
 
-                        var wasNotSet = new int[] { 1, 2, 3 }.Contains(item.ImageIndex);
+                        var wasNotSet = new[] { 1, 2, 3 }.Contains(item.ImageIndex);
 
                         if (wasNotSet)
                         {
