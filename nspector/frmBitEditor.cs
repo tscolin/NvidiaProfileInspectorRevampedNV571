@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -97,7 +97,7 @@ namespace nspector
                     if (maskValue != null)
                     {
                         maskStr = maskValue.UserfriendlyName;
-                        if (maskStr.Contains("("))
+                        if (maskStr.Contains('('))
                         {
                             maskStr = maskStr.Substring(0, maskStr.IndexOf("(") - 1);
                         }
