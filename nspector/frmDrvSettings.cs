@@ -1,4 +1,4 @@
-﻿using nspector.Common;
+using nspector.Common;
 using nspector.Common.Helper;
 using nspector.Native.NVAPI2;
 using nspector.Native.WINAPI;
@@ -940,7 +940,7 @@ namespace nspector
                         else
                         {
                             string profileNames = _scanner.FindProfilesUsingApplication(applicationName);
-                            if (profileNames == "")
+                            if (string.IsNullOrEmpty(profileNames))
                                 MessageBox.Show("This application executable might already be assigned to another profile!",
                                     "Error adding Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             else
@@ -1167,10 +1167,10 @@ namespace nspector
 
                 var profileName = "";
                 var exeFile = ShortcutResolver.ResolveExecuteable(files[0], out profileName);
-                if (exeFile != "")
+                if (!string.IsNullOrEmpty(exeFile))
                 {
                     var profiles = _scanner.FindProfilesUsingApplication(exeFile);
-                    if (profiles != "")
+                    if (!string.IsNullOrEmpty(profiles))
                     {
                         var profile = profiles.Split(';')[0];
                         var idx = cbProfiles.Items.IndexOf(profile);
