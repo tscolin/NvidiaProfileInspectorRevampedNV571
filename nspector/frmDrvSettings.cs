@@ -270,7 +270,7 @@ namespace nspector
 
                     var referenceSettings = DrsServiceLocator.ReferenceSettings?.Settings.FirstOrDefault(s => s.SettingId == settingid);
 
-                    if (string.IsNullOrEmpty(settingMeta.Description) && !(referenceSettings?.HasConstraints ?? false))
+                    if (string.IsNullOrEmpty(settingMeta.Description) && !(referenceSettings?.HasConstraints == true))
                     {
                         tbSettingDescription.Text = "";
                         tbSettingDescription.Visible = false;
@@ -280,7 +280,7 @@ namespace nspector
                     {
                         tbSettingDescription.Text = settingMeta.Description;
                         tbSettingDescription.Visible = true;
-                        tbSettingDescription.BackColor = (referenceSettings?.HasConstraints ?? false) ? Color.LightCoral : SystemColors.Control;
+                        tbSettingDescription.BackColor = (referenceSettings?.HasConstraints == true) ? Color.LightCoral : SystemColors.Control;
                     }
 
                     cbValues.Text = lvSettings.SelectedItems[0].SubItems[1].Text;
