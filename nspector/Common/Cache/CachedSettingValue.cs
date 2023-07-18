@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 
 namespace nspector.Common
@@ -31,7 +31,7 @@ namespace nspector.Common
 
         internal string ValueStr = "";
         internal uint Value = 0;
-        internal byte[] ValueBin = new byte[0];
+        internal byte[] ValueBin = Array.Empty<byte>();
         internal StringBuilder ProfileNames;
         internal uint ValueProfileCount;
     }
