@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -254,10 +254,7 @@ namespace nspector.Native.NVAPI2
 
         public uint dwordValue
         {
-            get
-            {
-                return BitConverter.ToUInt32(rawData, 0);
-            }
+            get => BitConverter.ToUInt32(rawData, 0);
 
             set
             {
@@ -268,10 +265,7 @@ namespace nspector.Native.NVAPI2
 
         public string stringValue
         {
-            get
-            {
-                return Encoding.Unicode.GetString(rawData).Split(new[] { '\0' }, 2)[0];
-            }
+            get => Encoding.Unicode.GetString(rawData).Split(new[] { '\0' }, 2)[0];
 
             set
             {
@@ -283,10 +277,7 @@ namespace nspector.Native.NVAPI2
 
         public string ansiStringValue
         {
-            get
-            {
-                return Encoding.Default.GetString(rawData).Split(new[] { '\0' }, 2)[0];
-            }
+            get => Encoding.Default.GetString(rawData).Split(new[] { '\0' }, 2)[0];
 
             set
             {
@@ -344,7 +335,7 @@ namespace nspector.Native.NVAPI2
     [StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode)]
     internal struct NVDRS_APPLICATION_V3
     {
-        public uint isMetro { get { return ((uint)((bitvector1 & 1))); } set { bitvector1 = ((uint)((value | bitvector1))); } }
+        public uint isMetro { get => ((uint)((bitvector1 & 1))); set => bitvector1 = ((uint)((value | bitvector1))); }
 
         public uint version;
         public uint isPredefined;

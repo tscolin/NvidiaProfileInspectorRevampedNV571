@@ -23,12 +23,12 @@ namespace nspector.Common.CustomSettings
 
         internal uint SettingId
         {
-            get { return Convert.ToUInt32(HexSettingId.Trim(), 16); }
+            get => Convert.ToUInt32(HexSettingId.Trim(), 16);
         }
 
         internal uint? DefaultValue
         {
-            get { return string.IsNullOrEmpty(OverrideDefault) ? null : (uint?)Convert.ToUInt32(OverrideDefault.Trim(), 16); }
+            get => string.IsNullOrEmpty(OverrideDefault) ? null : (uint? )Convert.ToUInt32(OverrideDefault.Trim(), 16);
         }
 
     }

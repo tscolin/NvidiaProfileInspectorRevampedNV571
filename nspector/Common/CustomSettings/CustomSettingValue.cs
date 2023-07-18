@@ -7,7 +7,7 @@ namespace nspector.Common.CustomSettings
     {
         internal uint SettingValue
         {
-            get { return Convert.ToUInt32(HexValue.Trim(), 16); }
+            get => Convert.ToUInt32(HexValue.Trim(), 16);
         }
 
         public string UserfriendlyName { get; set; }

@@ -1,4 +1,4 @@
-﻿using nspector.Common.CustomSettings;
+using nspector.Common.CustomSettings;
 using nspector.Native.NVAPI2;
 using System;
 using System.Collections.Generic;
@@ -139,7 +139,7 @@ namespace nspector.Common.Meta
 
         public SettingMetaSource Source
         {
-            get { return _source; }
+            get => _source;
         }
     }
 }

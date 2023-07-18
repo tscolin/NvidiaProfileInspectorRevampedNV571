@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -169,7 +169,7 @@ namespace nspector.Common.Meta
 
         public SettingMetaSource Source
         {
-            get { return SettingMetaSource.ConstantSettings; }
+            get => SettingMetaSource.ConstantSettings;
         }
     }
 }

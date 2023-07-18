@@ -1,4 +1,4 @@
-﻿using nspector.Native.NVAPI2;
+using nspector.Native.NVAPI2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace nspector.Common.Meta
 
         public SettingMetaSource Source
         {
-            get { return SettingMetaSource.ScannedSettings; }
+            get => SettingMetaSource.ScannedSettings;
         }
 
         public NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId)

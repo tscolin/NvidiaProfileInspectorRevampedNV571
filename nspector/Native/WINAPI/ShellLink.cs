@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -316,14 +316,8 @@ namespace nspector.Native.WINAPI
 
         internal string ShortCutFile
         {
-            get
-            {
-                return this.shortcutFile;
-            }
-            set
-            {
-                this.shortcutFile = value;
-            }
+            get => this.shortcutFile;
+            set => this.shortcutFile = value;
         }
 
         internal string IconPath

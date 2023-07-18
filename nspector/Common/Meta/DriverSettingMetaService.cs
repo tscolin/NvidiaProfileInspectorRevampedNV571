@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Text;
 using nspector.Native.NVAPI2;
 using nvw = nspector.Native.NVAPI2.NvapiDrsWrapper;
@@ -216,7 +216,7 @@ namespace nspector.Common.Meta
 
         public SettingMetaSource Source
         {
-            get { return SettingMetaSource.DriverSettings; }
+            get => SettingMetaSource.DriverSettings;
         }
     }
 }

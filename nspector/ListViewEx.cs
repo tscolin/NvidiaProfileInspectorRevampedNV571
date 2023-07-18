@@ -156,10 +156,7 @@ namespace nspector
 		[DefaultValue(View.LargeIcon)]
         internal new View View
 		{
-			get 
-			{
-				return base.View;
-			}
+			get => base.View;
 			set
 			{
 				foreach (EmbeddedControl ec in _embeddedControls)
