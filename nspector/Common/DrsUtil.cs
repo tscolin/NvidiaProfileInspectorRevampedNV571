@@ -1,4 +1,4 @@
-﻿using nspector.Common.Meta;
+using nspector.Common.Meta;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -109,7 +109,7 @@ namespace nspector.Common
                 return BitConverter.GetBytes(qword);
             }
 
-            if (input.Contains("-"))
+            if (input.Contains('-'))
                 return Array.ConvertAll<string, byte>(input.Split('-'), s => Convert.ToByte(s, 16));
 
             return null;
