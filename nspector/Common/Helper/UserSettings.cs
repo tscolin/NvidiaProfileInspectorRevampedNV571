@@ -28,7 +28,8 @@ namespace nspector.Common.Helper
 
             var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Application.ProductName);
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            return Path.Combine(path, "settings.xml");         }
+            return Path.Combine(path, "settings.xml");
+        }
 
         public void SaveSettings()
         {
@@ -44,7 +45,7 @@ namespace nspector.Common.Helper
             {
                 return XMLHelper<UserSettings>.DeserializeFromXMLFile(GetSettingsFilename());
             }
-            catch 
+            catch
             {
                 return new UserSettings();
             }

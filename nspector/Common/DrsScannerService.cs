@@ -76,7 +76,8 @@ namespace nspector.Common
 
         private int CalcPercent(int current, int max)
         {
-            return (current > 0) ? (int)Math.Round((current * 100f) / max) : 0;         }
+            return (current > 0) ? (int)Math.Round((current * 100f) / max) : 0;
+        }
 
         public async Task ScanProfileSettingsAsync(bool justModified, IProgress<int> progress, CancellationToken token = default(CancellationToken))
         {
@@ -161,7 +162,7 @@ namespace nspector.Common
         private void AddScannedSettingToCache(NVDRS_PROFILE profile, NVDRS_SETTING setting)
         {
             // 3D Vision is dead so dont bother scanning those values for improved scan performance
-            bool allowAddValue = !((setting.settingId & 0x70000000) == 0x70000000); 
+            bool allowAddValue = !((setting.settingId & 0x70000000) == 0x70000000);
             //bool allowAddValue = true;
 
             var cachedSetting = CachedSettings
@@ -184,7 +185,7 @@ namespace nspector.Common
                         cachedSetting.AddDwordValue(setting.predefinedValue.dwordValue, profile.profileName);
                     else if (setting.settingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
                         cachedSetting.AddBinaryValue(setting.predefinedValue.binaryValue, profile.profileName);
-                    
+
                 }
                 else
                     cachedSetting.ProfileCount++;
