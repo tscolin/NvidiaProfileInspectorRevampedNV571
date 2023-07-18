@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -164,7 +164,7 @@ namespace nspector.Common.Helper
                 if (pattern[0] == bytes[i] && bytes.Length - i >= pattern.Length)
                 {
                     bool ismatch = true;
-                    for (int j = 1; j < pattern.Length && ismatch == true; j++)
+                    for (int j = 1; j < pattern.Length && ismatch; j++)
                     {
                         if (bytes[i + j] != pattern[j] && ((wildcard.HasValue && wildcard != pattern[j]) || !wildcard.HasValue))
                         {
