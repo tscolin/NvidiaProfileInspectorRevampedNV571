@@ -205,10 +205,7 @@ namespace nspector.Common
             {
                 var matchingProfiles = new List<string>();
 
-                DrsSession((hSession) =>
-                {
-                    SaveSettingsFileEx(hSession, tmpfile);
-                });
+                DrsSession((hSession) => SaveSettingsFileEx(hSession, tmpfile));
 
                 if (File.Exists(tmpfile))
                 {
