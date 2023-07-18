@@ -7,8 +7,7 @@ using System.Text;
 namespace nspector.Native.NVAPI2
 {
 
-    public enum NvAPI_Status : int
-    {
+    public enum NvAPI_Status     {
         NVAPI_OK = 0,
         NVAPI_ERROR = -1,
         NVAPI_LIBRARY_NOT_FOUND = -2,
@@ -126,16 +125,14 @@ namespace nspector.Native.NVAPI2
         NVAPI_ECID_KEY_VERIFICATION_FAILED = -198,
     }
 
-    internal enum NVDRS_SETTING_TYPE : int
-    {
+    internal enum NVDRS_SETTING_TYPE     {
         NVDRS_DWORD_TYPE,
         NVDRS_BINARY_TYPE,
         NVDRS_STRING_TYPE,
         NVDRS_WSTRING_TYPE,
     }
 
-    internal enum NVDRS_SETTING_LOCATION : int
-    {
+    internal enum NVDRS_SETTING_LOCATION     {
         NVDRS_CURRENT_PROFILE_LOCATION,
         NVDRS_GLOBAL_PROFILE_LOCATION,
         NVDRS_BASE_PROFILE_LOCATION,
