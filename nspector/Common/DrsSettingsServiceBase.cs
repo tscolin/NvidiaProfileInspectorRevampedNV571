@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -18,7 +18,7 @@ namespace nspector.Common
         protected DrsSettingsMetaService meta;
         protected DrsDecrypterService decrypter;
 
-        public DrsSettingsServiceBase(DrsSettingsMetaService metaService, DrsDecrypterService decrpterService = null)
+        protected DrsSettingsServiceBase(DrsSettingsMetaService metaService, DrsDecrypterService decrpterService = null)
         {
             meta = metaService;
             decrypter = decrpterService;
