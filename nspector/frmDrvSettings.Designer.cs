@@ -59,6 +59,8 @@
             this.tscbShowScannedUnknownSettings = new System.Windows.Forms.ToolStripButton();
             this.tsbBitValueEditor = new System.Windows.Forms.ToolStripButton();
             this.tsSep6 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbApplyProfile = new System.Windows.Forms.ToolStripButton();
             this.btnResetValue = new System.Windows.Forms.Button();
             this.lblApplications = new System.Windows.Forms.Label();
@@ -72,9 +74,9 @@
             this.lblWidth16 = new System.Windows.Forms.Label();
             this.lblWidth30 = new System.Windows.Forms.Label();
             this.lvSettings = new nspector.ListViewEx();
-            this.chSettingID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chSettingValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chSettingValueHex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chSettingID = new System.Windows.Forms.ColumnHeader();
+            this.chSettingValue = new System.Windows.Forms.ColumnHeader();
+            this.chSettingValueHex = new System.Windows.Forms.ColumnHeader();
             this.tbSettingDescription = new System.Windows.Forms.TextBox();
             this.pnlListview = new System.Windows.Forms.Panel();
             this.tsMain.SuspendLayout();
@@ -92,19 +94,17 @@
             // 
             // pbMain
             // 
-            this.pbMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.pbMain.Location = new System.Drawing.Point(12, 475);
             this.pbMain.Margin = new System.Windows.Forms.Padding(4);
             this.pbMain.Name = "pbMain";
-            this.pbMain.Size = new System.Drawing.Size(840, 9);
+            this.pbMain.Size = new System.Drawing.Size(863, 9);
             this.pbMain.TabIndex = 19;
             // 
             // tsMain
             // 
             this.tsMain.AllowMerge = false;
-            this.tsMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tsMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tsMain.AutoSize = false;
             this.tsMain.BackgroundImage = global::nspector.Properties.Resources.transparent16;
             this.tsMain.CanOverflow = false;
@@ -112,33 +112,12 @@
             this.tsMain.GripMargin = new System.Windows.Forms.Padding(0);
             this.tsMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tsMain.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tslProfiles,
-            this.cbProfiles,
-            this.tsbModifiedProfiles,
-            this.toolStripSeparator1,
-            this.tsbRefreshProfile,
-            this.tsbRestoreProfile,
-            this.tsbCreateProfile,
-            this.tsbDeleteProfile,
-            this.tsSep2,
-            this.tsbAddApplication,
-            this.tssbRemoveApplication,
-            this.tsSep3,
-            this.tsbExportProfiles,
-            this.tsbImportProfiles,
-            this.tsSep4,
-            this.tscbShowCustomSettingNamesOnly,
-            this.tsSep5,
-            this.tscbShowScannedUnknownSettings,
-            this.tsbBitValueEditor,
-            this.tsSep6,
-            this.tsbApplyProfile});
+            this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.tslProfiles, this.cbProfiles, this.tsbModifiedProfiles, this.toolStripSeparator1, this.tsbRefreshProfile, this.tsbRestoreProfile, this.tsbCreateProfile, this.tsbDeleteProfile, this.tsSep2, this.tsbAddApplication, this.tssbRemoveApplication, this.tsSep3, this.tsbExportProfiles, this.tsbImportProfiles, this.tsSep4, this.tscbShowCustomSettingNamesOnly, this.tsSep5, this.tscbShowScannedUnknownSettings, this.tsbBitValueEditor, this.tsSep6, this.toolStripButton1, this.toolStripSeparator2, this.tsbApplyProfile });
             this.tsMain.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.tsMain.Location = new System.Drawing.Point(12, 4);
             this.tsMain.Name = "tsMain";
             this.tsMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.tsMain.Size = new System.Drawing.Size(840, 25);
+            this.tsMain.Size = new System.Drawing.Size(863, 25);
             this.tsMain.TabIndex = 24;
             this.tsMain.Text = "toolStrip1";
             // 
@@ -255,11 +234,7 @@
             // tsbExportProfiles
             // 
             this.tsbExportProfiles.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbExportProfiles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportCurrentProfileOnlyToolStripMenuItem,
-            this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem,
-            this.exportUserdefinedProfilesToolStripMenuItem,
-            this.exportAllProfilesNVIDIATextFormatToolStripMenuItem});
+            this.tsbExportProfiles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.exportCurrentProfileOnlyToolStripMenuItem, this.exportCurrentProfileIncludingPredefinedSettingsToolStripMenuItem, this.exportUserdefinedProfilesToolStripMenuItem, this.exportAllProfilesNVIDIATextFormatToolStripMenuItem });
             this.tsbExportProfiles.Image = global::nspector.Properties.Resources.export1;
             this.tsbExportProfiles.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbExportProfiles.Name = "tsbExportProfiles";
@@ -298,9 +273,7 @@
             // tsbImportProfiles
             // 
             this.tsbImportProfiles.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbImportProfiles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importProfilesToolStripMenuItem,
-            this.importAllProfilesNVIDIATextFormatToolStripMenuItem});
+            this.tsbImportProfiles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.importProfilesToolStripMenuItem, this.importAllProfilesNVIDIATextFormatToolStripMenuItem });
             this.tsbImportProfiles.Image = global::nspector.Properties.Resources.import1;
             this.tsbImportProfiles.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbImportProfiles.Name = "tsbImportProfiles";
@@ -370,6 +343,21 @@
             this.tsSep6.Name = "tsSep6";
             this.tsSep6.Size = new System.Drawing.Size(6, 25);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "x";
+            this.toolStripButton1.ToolTipText = "ExtractShit";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
             // tsbApplyProfile
             // 
             this.tsbApplyProfile.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -387,7 +375,7 @@
             this.btnResetValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnResetValue.Enabled = false;
             this.btnResetValue.Image = global::nspector.Properties.Resources.nv_btn;
-            this.btnResetValue.Location = new System.Drawing.Point(732, 175);
+            this.btnResetValue.Location = new System.Drawing.Point(755, 175);
             this.btnResetValue.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.btnResetValue.Name = "btnResetValue";
             this.btnResetValue.Size = new System.Drawing.Size(25, 19);
@@ -397,15 +385,14 @@
             // 
             // lblApplications
             // 
-            this.lblApplications.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblApplications.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.lblApplications.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(118)))), ((int)(((byte)(185)))), ((int)(((byte)(0)))));
             this.lblApplications.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblApplications.ForeColor = System.Drawing.Color.White;
             this.lblApplications.Location = new System.Drawing.Point(12, 32);
             this.lblApplications.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblApplications.Name = "lblApplications";
-            this.lblApplications.Size = new System.Drawing.Size(840, 17);
+            this.lblApplications.Size = new System.Drawing.Size(863, 17);
             this.lblApplications.TabIndex = 25;
             this.lblApplications.Text = "fsagame.exe, bond.exe, herozero.exe";
             // 
@@ -494,10 +481,7 @@
             // 
             // lvSettings
             // 
-            this.lvSettings.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chSettingID,
-            this.chSettingValue,
-            this.chSettingValueHex});
+            this.lvSettings.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { this.chSettingID, this.chSettingValue, this.chSettingValueHex });
             this.lvSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvSettings.FullRowSelect = true;
             this.lvSettings.GridLines = true;
@@ -508,7 +492,7 @@
             this.lvSettings.MultiSelect = false;
             this.lvSettings.Name = "lvSettings";
             this.lvSettings.ShowItemToolTips = true;
-            this.lvSettings.Size = new System.Drawing.Size(840, 372);
+            this.lvSettings.Size = new System.Drawing.Size(863, 372);
             this.lvSettings.SmallImageList = this.ilListView;
             this.lvSettings.TabIndex = 2;
             this.lvSettings.UseCompatibleStateImageBehavior = false;
@@ -542,27 +526,25 @@
             this.tbSettingDescription.Name = "tbSettingDescription";
             this.tbSettingDescription.ReadOnly = true;
             this.tbSettingDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbSettingDescription.Size = new System.Drawing.Size(840, 44);
+            this.tbSettingDescription.Size = new System.Drawing.Size(863, 44);
             this.tbSettingDescription.TabIndex = 81;
             this.tbSettingDescription.Visible = false;
             // 
             // pnlListview
             // 
-            this.pnlListview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlListview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlListview.Controls.Add(this.lvSettings);
             this.pnlListview.Controls.Add(this.tbSettingDescription);
             this.pnlListview.Location = new System.Drawing.Point(12, 52);
             this.pnlListview.Name = "pnlListview";
-            this.pnlListview.Size = new System.Drawing.Size(840, 416);
+            this.pnlListview.Size = new System.Drawing.Size(863, 416);
             this.pnlListview.TabIndex = 82;
             // 
             // frmDrvSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(864, 492);
+            this.ClientSize = new System.Drawing.Size(887, 492);
             this.Controls.Add(this.pnlListview);
             this.Controls.Add(this.lblWidth30);
             this.Controls.Add(this.lblWidth16);
@@ -587,12 +569,14 @@
             this.pnlListview.ResumeLayout(false);
             this.pnlListview.PerformLayout();
             this.ResumeLayout(false);
-
         }
+
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
 
         #endregion
 
-        private ListViewEx lvSettings;
+        private nspector.ListViewEx lvSettings;
         private System.Windows.Forms.ColumnHeader chSettingID;
         private System.Windows.Forms.ColumnHeader chSettingValue;
         private System.Windows.Forms.ColumnHeader chSettingValueHex;
