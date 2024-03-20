@@ -287,19 +287,27 @@ namespace nspector.Common
 
         protected List<NVDRS_APPLICATION_V4> GetProfileApplications(IntPtr hSession, IntPtr hProfile)
         {
-            uint appCount = 512;
-            var apps = new NVDRS_APPLICATION_V4[512];
-            apps[0].version = NvapiDrsWrapper.NVDRS_APPLICATION_VER;
+            uint appCount = 2;
+            var result = new List<NVDRS_APPLICATION_V4>();
+            var buf = new NVDRS_APPLICATION_V4[appCount];
+            buf[0].version = NvapiDrsWrapper.NVDRS_APPLICATION_VER;
 
-            var esRes = NvapiDrsWrapper.DRS_EnumApplications(hSession, hProfile, 0, ref appCount, ref apps);
+            NvAPI_Status esRes;
+            do
+            {
+                appCount = (uint)buf.Length;
+                esRes = NvapiDrsWrapper.DRS_EnumApplications(hSession, hProfile, (uint)result.Count, ref appCount, ref buf);
+                if (esRes is NvAPI_Status.NVAPI_OK)
+                    result.AddRange(buf.Take((int)appCount));
+            } while (esRes is NvAPI_Status.NVAPI_OK && appCount == buf.Length);
 
             if (esRes == NvAPI_Status.NVAPI_END_ENUMERATION)
-                return new List<NVDRS_APPLICATION_V4>();
+                return result;
 
             if (esRes != NvAPI_Status.NVAPI_OK)
                 throw new NvapiException("DRS_EnumApplications", esRes);
 
-            return apps.ToList();
+            return result;
         }
 
         protected void SaveSettings(IntPtr hSession)
