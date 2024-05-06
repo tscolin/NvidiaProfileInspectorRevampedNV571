@@ -1,21 +1,21 @@
-﻿using System;
+﻿using nspector.Common;
+using nspector.Common.Helper;
+using nspector.Native.WINAPI;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using nspector.Common;
-using nspector.Common.Helper;
-using nspector.Native.WINAPI;
 
 namespace nspector
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             try
             {
@@ -27,56 +27,52 @@ namespace nspector
             try
             {
 #endif
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            DropDownMenuScrollWheelHandler.Enable(true);
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                DropDownMenuScrollWheelHandler.Enable(true);
 
-            var argFileIndex = ArgFileIndex(args);
-            if (argFileIndex != -1)
-            {
-
-                if (new FileInfo(args[argFileIndex]).Extension.ToLowerInvariant() == ".nip")
+                var argFileIndex = ArgFileIndex(args);
+                if (argFileIndex != -1)
                 {
-                    try
+                    if (new FileInfo(args[argFileIndex]).Extension.ToLowerInvariant() == ".nip")
                     {
-                        var import = DrsServiceLocator.ImportService;
-                        var importReport = import.ImportProfiles(args[argFileIndex]);
-                        GC.Collect();
-                        Process current = Process.GetCurrentProcess();
-                        foreach (
-                            Process process in
-                                Process.GetProcessesByName(current.ProcessName.Replace(".vshost", "")))
+                        try
                         {
-                            if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
+                            var import = DrsServiceLocator.ImportService;
+                            var importReport = import.ImportProfiles(args[argFileIndex]);
+                            GC.Collect();
+                            Process current = Process.GetCurrentProcess();
+                            foreach (
+                                Process process in
+                                    Process.GetProcessesByName(current.ProcessName.Replace(".vshost", "")))
                             {
-                                MessageHelper mh = new MessageHelper();
-                                mh.sendWindowsStringMessage((int)process.MainWindowHandle, 0, "ProfilesImported");
+                                if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
+                                {
+                                    MessageHelper mh = new();
+                                    mh.sendWindowsStringMessage((int)process.MainWindowHandle, 0, "ProfilesImported");
+                                }
+                            }
+
+                            if (string.IsNullOrEmpty(importReport) && !ArgExists(args, "-silentImport") && !ArgExists(args, "-silent"))
+                            {
+                                frmDrvSettings.ShowImportDoneMessage(importReport);
                             }
                         }
-
-                        if (string.IsNullOrEmpty(importReport) && !ArgExists(args, "-silentImport") && !ArgExists(args, "-silent"))
+                        catch (Exception ex)
                         {
-                            frmDrvSettings.ShowImportDoneMessage(importReport);
+                            MessageBox.Show("Import Error: " + ex.Message, Application.ProductName + " Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Import Error: " + ex.Message, Application.ProductName + " Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
                 }
-            }
-
-            else if (ArgExists(args, "-createCSN"))
-            {
-                File.WriteAllText("CustomSettingNames.xml", Properties.Resources.CustomSettingNames);
-            }
-            else
-            {
-
-                bool createdNew = true;
-                using (Mutex mutex = new Mutex(true, Application.ProductName, out createdNew))
+                else if (ArgExists(args, "-createCSN"))
                 {
+                    File.WriteAllText("CustomSettingNames.xml", Properties.Resources.CustomSettingNames);
+                }
+                else
+                {
+                    bool createdNew = true;
+                    using Mutex mutex = new(true, Application.ProductName, out createdNew);
                     if (createdNew)
                     {
                         Application.Run(new frmDrvSettings(ArgExists(args, "-showOnlyCSN"), ArgExists(args, "-disableScan")));
@@ -90,25 +86,22 @@ namespace nspector
                         {
                             if (process.Id != current.Id && process.MainWindowTitle.Contains("Settings"))
                             {
-                                MessageHelper mh = new MessageHelper();
+                                MessageHelper mh = new();
                                 mh.bringAppToFront((int)process.MainWindowHandle);
                             }
                         }
                     }
                 }
-            }
 #if RELEASE
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\r\n\r\n" + ex.StackTrace ,"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message + "\r\n\r\n" + ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 #endif
-
         }
 
-        static bool ArgExists(string[] args, string arg)
+        private static bool ArgExists(string[] args, string arg)
         {
             foreach (string a in args)
             {
@@ -118,7 +111,7 @@ namespace nspector
             return false;
         }
 
-        static int ArgFileIndex(string[] args)
+        private static int ArgFileIndex(string[] args)
         {
             for (int i = 0; i < args.Length; i++)
             {

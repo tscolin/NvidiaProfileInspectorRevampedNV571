@@ -4,13 +4,9 @@ using System.Windows.Forms;
 namespace nspector.Common.Helper
 {
 
-    public class ListViewGroupHeaderSorter : IComparer<ListViewGroup>
+    public class ListViewGroupHeaderSorter(bool ascending) : IComparer<ListViewGroup>
     {
-        private bool _ascending = true;
-        public ListViewGroupHeaderSorter(bool ascending)
-        {
-            _ascending = ascending;
-        }
+        private readonly bool _ascending = ascending;
 
         #region IComparer<ListViewGroup> Members
 
@@ -51,10 +47,9 @@ namespace nspector.Common.Helper
             _listview = listview;
         }
 
-        public void SortGroups(bool ascending)
+        public void SortGroups(bool ascending, List<ListViewGroup> lvgs)
         {
             _listview.BeginUpdate();
-            List<ListViewGroup> lvgs = new List<ListViewGroup>();
             foreach (ListViewGroup lvg in _listview.Groups)
                 lvgs.Add(lvg);
             _listview.Groups.Clear();

@@ -18,8 +18,8 @@ namespace nspector.Common.Meta
 
         private readonly Dictionary<ESetting, Type> settingEnumTypeCache;
 
-        private string[] ignoreSettingNames = new[] { "TOTAL_DWORD_SETTING_NUM", "TOTAL_WSTRING_SETTING_NUM",
-                                                      "TOTAL_SETTING_NUM", "INVALID_SETTING_ID" };
+        private readonly string[] ignoreSettingNames = [ "TOTAL_DWORD_SETTING_NUM", "TOTAL_WSTRING_SETTING_NUM",
+                                                      "TOTAL_SETTING_NUM", "INVALID_SETTING_ID" ];
 
         private Dictionary<ESetting, Type> CreateSettingEnumTypeCache()
         {
@@ -139,8 +139,7 @@ namespace nspector.Common.Meta
         private HashSet<uint> settingIds;
         public List<uint> GetSettingIds()
         {
-            if (settingIds == null)
-                settingIds = new HashSet<uint>(
+            settingIds ??= new HashSet<uint>(
                     Enum.GetValues(typeof(ESetting))
                     .Cast<ESetting>()
                     .Where(x => !ignoreSettingNames.Contains(x.ToString()))
@@ -148,7 +147,7 @@ namespace nspector.Common.Meta
                     .Distinct()
                     .ToList());
 
-            return settingIds.ToList();
+            return [.. settingIds];
         }
 
 

@@ -6,14 +6,9 @@ using System.Text;
 
 namespace nspector.Common.Meta
 {
-    internal class ScannedSettingMetaService : ISettingMetaService
+    internal class ScannedSettingMetaService(List<CachedSettings> cachedSettings) : ISettingMetaService
     {
-        private readonly List<CachedSettings> CachedSettings;
-
-        public ScannedSettingMetaService(List<CachedSettings> cachedSettings)
-        {
-            CachedSettings = cachedSettings;
-        }
+        private readonly List<CachedSettings> CachedSettings = cachedSettings;
 
         public SettingMetaSource Source
         {

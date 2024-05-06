@@ -11,7 +11,7 @@ namespace nspector.Common
 
         public static volatile bool HoldSession = true;
 
-        private static object _Sync = new object();
+        private static readonly object _Sync = new();
 
 
         public static T DrsSession<T>(Func<IntPtr, T> action, bool forceNonGlobalSession = false, bool preventLoadSettings = false)
@@ -55,7 +55,7 @@ namespace nspector.Common
             {
                 if (GlobalSession != IntPtr.Zero)
                 {
-                    var csRes = nvw.DRS_DestroySession(GlobalSession);
+                    _ = nvw.DRS_DestroySession(GlobalSession);
                     GlobalSession = IntPtr.Zero;
                 }
             }

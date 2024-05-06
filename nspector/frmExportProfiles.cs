@@ -1,17 +1,14 @@
-﻿using System;
+﻿using nspector.Common;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using nspector.Common;
-using nspector.Common.Helper;
-using nspector.Common.Import;
 
 namespace nspector
 {
     internal partial class frmExportProfiles : Form
     {
-        frmDrvSettings settingsOwner = null;
+        private frmDrvSettings settingsOwner = null;
 
         internal frmExportProfiles()
         {
@@ -27,21 +24,19 @@ namespace nspector
             updateProfileList();
             this.ShowDialog();
         }
-        
 
         private void updateProfileList()
         {
             lvProfiles.Items.Clear();
-            
+
             if (settingsOwner != null)
             {
-                foreach(string mp in DrsServiceLocator.ScannerService.ModifiedProfiles)
+                foreach (string mp in DrsServiceLocator.ScannerService.ModifiedProfiles)
                 {
                     lvProfiles.Items.Add(mp);
                 }
             }
         }
-
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -50,7 +45,7 @@ namespace nspector
 
         private void btnSelAll_Click(object sender, EventArgs e)
         {
-            for(int i=0;i<lvProfiles.Items.Count;i++)
+            for (int i = 0; i < lvProfiles.Items.Count; i++)
             {
                 lvProfiles.Items[i].Checked = true;
             }
@@ -74,9 +69,11 @@ namespace nspector
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.DefaultExt = "*.nip";
-            sfd.Filter = Application.ProductName + " Profiles|*.nip";
+            SaveFileDialog sfd = new()
+            {
+                DefaultExt = "*.nip",
+                Filter = Application.ProductName + " Profiles|*.nip"
+            };
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 var profileNamesToExport = new List<string>();
@@ -103,7 +100,7 @@ namespace nspector
         private void lvProfiles_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             int cc = 0;
-            for (int i = 0; i < lvProfiles.Items.Count;i++ )
+            for (int i = 0; i < lvProfiles.Items.Count; i++)
                 if (lvProfiles.Items[i].Checked)
                     cc++;
 
@@ -112,9 +109,5 @@ namespace nspector
             else
                 btnExport.Enabled = false;
         }
-
-       
-
     }
-
 }
