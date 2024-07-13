@@ -1,4 +1,4 @@
-﻿using nspector.Common.CustomSettings;
+using nspector.Common.CustomSettings;
 using nspector.Native.NVAPI2;
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ namespace nspector.Common.Meta
         {
             if (string.IsNullOrEmpty(type)) return null;
 
-            switch(type.ToLowerInvariant())
+            switch (type.ToLowerInvariant())
             {
                 case "dword":
                     return NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
@@ -126,7 +126,7 @@ namespace nspector.Common.Meta
             var setting = customSettings.Settings
                .FirstOrDefault(x => x.SettingId.Equals(settingId));
 
-            return setting?.Hidden ?? false;
+            return setting?.Hidden == true;
         }
 
         public string GetDescription(uint settingId)
@@ -139,7 +139,7 @@ namespace nspector.Common.Meta
 
         public SettingMetaSource Source
         {
-            get { return _source; }
+            get => _source;
         }
     }
 }

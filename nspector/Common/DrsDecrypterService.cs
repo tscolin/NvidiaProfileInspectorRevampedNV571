@@ -1,4 +1,4 @@
-﻿using nspector.Common.Helper;
+using nspector.Common.Helper;
 using nspector.Native.NVAPI2;
 using System;
 using System.Collections.Generic;
@@ -105,10 +105,7 @@ namespace nspector.Common
 
             try
             {
-                DrsSession((hSession) =>
-                {
-                    SaveSettingsFileEx(hSession, tmpfile);
-                });
+                DrsSession((hSession) => SaveSettingsFileEx(hSession, tmpfile));
 
                 if (File.Exists(tmpfile))
                 {

@@ -1,4 +1,4 @@
-﻿using nspector.Common;
+using nspector.Common;
 using nspector.Common.Helper;
 using nspector.Native.NVAPI2;
 using nspector.Native.WINAPI;
@@ -83,7 +83,7 @@ namespace nspector
             var item = new ListViewItem(settingName);
             item.Tag = setting.SettingId;
             item.Group = group;
-            
+
             item.SubItems.Add(setting.ValueText);
             item.SubItems.Add(setting.ValueRaw);
 
@@ -113,12 +113,12 @@ namespace nspector
             return item;
         }
 
-        private void RefreshApplicationsCombosAndText(Dictionary<string,string> applications)
+        private void RefreshApplicationsCombosAndText(Dictionary<string, string> applications)
         {
             lblApplications.Text = "";
             tssbRemoveApplication.DropDownItems.Clear();
 
-            lblApplications.Text = " " + string.Join(", ", applications.Select(x=>x.Value));
+            lblApplications.Text = " " + string.Join(", ", applications.Select(x => x.Value));
             foreach (var app in applications)
             {
                 var item = tssbRemoveApplication.DropDownItems.Add(app.Value, Properties.Resources.ieframe_1_18212);
@@ -148,7 +148,7 @@ namespace nspector
             {
                 lvSettings.Items.Clear();
                 lvSettings.Groups.Clear();
-                var applications = new Dictionary<string,string>();
+                var applications = new Dictionary<string, string>();
 
                 _currentProfileSettingItems = _drs.GetSettingsForProfile(_CurrentProfile, GetSettingViewMode(), ref applications);
                 RefreshApplicationsCombosAndText(applications);
@@ -243,7 +243,7 @@ namespace nspector
 
                             tsbBitValueEditor.Enabled = valueNames.Count > 0;
 
-                            
+
                         }
 
                         if (settingMeta.SettingType == Native.NVAPI2.NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE && settingMeta.StringValues != null)
@@ -270,7 +270,7 @@ namespace nspector
 
                     var referenceSettings = DrsServiceLocator.ReferenceSettings?.Settings.FirstOrDefault(s => s.SettingId == settingid);
 
-                    if (string.IsNullOrEmpty(settingMeta.Description) && !(referenceSettings?.HasConstraints ?? false))
+                    if (string.IsNullOrEmpty(settingMeta.Description) && !(referenceSettings?.HasConstraints == true))
                     {
                         tbSettingDescription.Text = "";
                         tbSettingDescription.Visible = false;
@@ -280,7 +280,7 @@ namespace nspector
                     {
                         tbSettingDescription.Text = settingMeta.Description;
                         tbSettingDescription.Visible = true;
-                        tbSettingDescription.BackColor = (referenceSettings?.HasConstraints ?? false) ? Color.LightCoral : SystemColors.Control;
+                        tbSettingDescription.BackColor = (referenceSettings?.HasConstraints == true) ? Color.LightCoral : SystemColors.Control;
                     }
 
                     cbValues.Text = lvSettings.SelectedItems[0].SubItems[1].Text;
@@ -756,7 +756,7 @@ namespace nspector
             {
                 await _scanner.ScanProfileSettingsAsync(true, progressHandler, _scannerCancelationTokenSource.Token);
             }
-                        
+
             RefreshModifiesProfilesDropDown();
             tsbModifiedProfiles.Enabled = true;
 
@@ -940,7 +940,7 @@ namespace nspector
                         else
                         {
                             string profileNames = _scanner.FindProfilesUsingApplication(applicationName);
-                            if (profileNames == "")
+                            if (string.IsNullOrEmpty(profileNames))
                                 MessageBox.Show("This application executable might already be assigned to another profile!",
                                     "Error adding Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             else
@@ -1167,10 +1167,10 @@ namespace nspector
 
                 var profileName = "";
                 var exeFile = ShortcutResolver.ResolveExecuteable(files[0], out profileName);
-                if (exeFile != "")
+                if (!string.IsNullOrEmpty(exeFile))
                 {
                     var profiles = _scanner.FindProfilesUsingApplication(exeFile);
-                    if (profiles != "")
+                    if (!string.IsNullOrEmpty(profiles))
                     {
                         var profile = profiles.Split(';')[0];
                         var idx = cbProfiles.Items.IndexOf(profile);
@@ -1199,7 +1199,7 @@ namespace nspector
                 var settingId = ((uint)lvSettings.SelectedItems[0].Tag);
                 var settingName = lvSettings.SelectedItems[0].Text;
                 //Clipboard.SetText(string.Format($"0x{settingId:X8} {settingName}"));
-                Clipboard.SetText(string.Format($"{settingName}"));
+                Clipboard.SetText($"{settingName}");
             }
         }
 
@@ -1297,7 +1297,7 @@ namespace nspector
             {
                 var lowerInput = inputString.Trim().ToLowerInvariant();
                 lvSettings.BeginUpdate();
-                foreach(ListViewItem itm in lvSettings.Items)
+                foreach (ListViewItem itm in lvSettings.Items)
                 {
                     if (!itm.Text.ToLowerInvariant().Contains(lowerInput))
                     {
@@ -1306,7 +1306,7 @@ namespace nspector
                 }
                 lvSettings.EndUpdate();
             }
-            
+
         }
 
         private void EnableDevmode()
@@ -1341,8 +1341,8 @@ namespace nspector
                         var meta = _meta.GetSettingMeta(settingId);
                         if (meta.SettingType != NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE) continue;
 
-                        var wasNotSet = new int[] { 1, 2, 3 }.Contains(item.ImageIndex);
-                        
+                        var wasNotSet = new[] { 1, 2, 3 }.Contains(item.ImageIndex);
+
                         if (wasNotSet)
                         {
                             _drs.SetDwordValueToProfile(_CurrentProfile, settingId, 0x0);
@@ -1388,7 +1388,7 @@ namespace nspector
                 {
                     if (item.ImageIndex != 0) continue;
 
-                    if(!groupTitleAdded)
+                    if (!groupTitleAdded)
                     {
                         sbSettings.AppendFormat("\r\n[{0}]\r\n", group.Header);
                         groupTitleAdded = true;
@@ -1396,7 +1396,7 @@ namespace nspector
                     sbSettings.AppendFormat("{0,-40} {1}\r\n", item.Text, item.SubItems[1].Text);
                 }
             }
-            
+
             Clipboard.SetText(sbSettings.ToString());
 
         }

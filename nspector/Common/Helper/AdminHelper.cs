@@ -1,4 +1,4 @@
-﻿using System.Security.Principal;
+using System.Security.Principal;
 
 namespace nspector.Common.Helper
 {
@@ -14,7 +14,7 @@ namespace nspector.Common.Helper
 
         public static bool IsAdmin
         {
-            get { return isAdmin; }
+            get => isAdmin;
         }
     }
 }

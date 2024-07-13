@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -9,7 +9,7 @@ namespace nspector.Native.WINAPI
     internal class ShellLink : IDisposable
     {
 
-        [ComImport()]
+        [ComImport]
         [Guid("0000010C-0000-0000-C000-000000000046")]
         [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface IPersist
@@ -18,7 +18,7 @@ namespace nspector.Native.WINAPI
             void GetClassID(out Guid pClassID);
         }
 
-        [ComImport()]
+        [ComImport]
         [Guid("0000010B-0000-0000-C000-000000000046")]
         [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface IPersistFile
@@ -41,13 +41,13 @@ namespace nspector.Native.WINAPI
                [MarshalAs(UnmanagedType.LPWStr)] out string ppszFileName);
         }
 
-        [ComImport()]
+        [ComImport]
         [Guid("000214EE-0000-0000-C000-000000000046")]
         [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface IShellLinkA
         {
             void GetPath(
-               [Out(), MarshalAs(UnmanagedType.LPStr)] StringBuilder pszFile,
+               [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder pszFile,
                int cchMaxPath,
                ref _WIN32_FIND_DATAA pfd,
                uint fFlags);
@@ -57,21 +57,21 @@ namespace nspector.Native.WINAPI
             void SetIDList(IntPtr pidl);
 
             void GetDescription(
-               [Out(), MarshalAs(UnmanagedType.LPStr)] StringBuilder pszFile,
+               [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder pszFile,
                int cchMaxName);
 
             void SetDescription(
                [MarshalAs(UnmanagedType.LPStr)] string pszName);
 
             void GetWorkingDirectory(
-               [Out(), MarshalAs(UnmanagedType.LPStr)] StringBuilder pszDir,
+               [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder pszDir,
                int cchMaxPath);
 
             void SetWorkingDirectory(
                [MarshalAs(UnmanagedType.LPStr)] string pszDir);
 
             void GetArguments(
-               [Out(), MarshalAs(UnmanagedType.LPStr)] StringBuilder pszArgs,
+               [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder pszArgs,
                int cchMaxPath);
 
             void SetArguments(
@@ -84,7 +84,7 @@ namespace nspector.Native.WINAPI
             void SetShowCmd(uint piShowCmd);
 
             void GetIconLocation(
-               [Out(), MarshalAs(UnmanagedType.LPStr)] StringBuilder pszIconPath,
+               [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder pszIconPath,
                int cchIconPath,
                out int piIcon);
 
@@ -105,13 +105,13 @@ namespace nspector.Native.WINAPI
         }
 
 
-        [ComImport()]
+        [ComImport]
         [Guid("000214F9-0000-0000-C000-000000000046")]
         [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface IShellLinkW
         {
             void GetPath(
-               [Out(), MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszFile,
+               [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszFile,
                int cchMaxPath,
                ref _WIN32_FIND_DATAW pfd,
                uint fFlags);
@@ -119,21 +119,21 @@ namespace nspector.Native.WINAPI
             void GetIDList(out IntPtr ppidl);
             void SetIDList(IntPtr pidl);
             void GetDescription(
-               [Out(), MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszFile,
+               [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszFile,
                int cchMaxName);
 
             void SetDescription(
                [MarshalAs(UnmanagedType.LPWStr)] string pszName);
 
             void GetWorkingDirectory(
-               [Out(), MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszDir,
+               [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszDir,
                int cchMaxPath);
 
             void SetWorkingDirectory(
                [MarshalAs(UnmanagedType.LPWStr)] string pszDir);
 
             void GetArguments(
-               [Out(), MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszArgs,
+               [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszArgs,
                int cchMaxPath);
 
             void SetArguments(
@@ -146,7 +146,7 @@ namespace nspector.Native.WINAPI
             void SetShowCmd(uint piShowCmd);
 
             void GetIconLocation(
-               [Out(), MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszIconPath,
+               [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszIconPath,
                int cchIconPath,
                out int piIcon);
 
@@ -168,7 +168,7 @@ namespace nspector.Native.WINAPI
 
         [Guid("00021401-0000-0000-C000-000000000046")]
         [ClassInterface(ClassInterfaceType.None)]
-        [ComImport()]
+        [ComImport]
         private class CShellLink { }
 
         private enum EShellLinkGP : uint
@@ -316,14 +316,8 @@ namespace nspector.Native.WINAPI
 
         internal string ShortCutFile
         {
-            get
-            {
-                return this.shortcutFile;
-            }
-            set
-            {
-                this.shortcutFile = value;
-            }
+            get => this.shortcutFile;
+            set => this.shortcutFile = value;
         }
 
         internal string IconPath

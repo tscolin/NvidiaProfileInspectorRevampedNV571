@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using nspector.Common.Meta;
@@ -173,7 +173,7 @@ namespace nspector.Common
             }
 
             var atmp = a.FirstOrDefault();
-            if (atmp != null && atmp is IComparable)
+            if (atmp is IComparable)
                 return a.OrderBy(x => x.Value).ToList();
             else
                 return a.ToList();
@@ -428,7 +428,7 @@ namespace nspector.Common
         {
             var csn = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.CustomSettings);
             var csnDescription = csn != null ? ((CustomSettingMetaService)csn.Service).GetDescription(settingId) ?? "" : "";
-            
+
             var refs = MetaServices.FirstOrDefault(m => m.Service.Source == SettingMetaSource.ReferenceSettings);
             var refsDescription = refs != null ? ((CustomSettingMetaService)refs.Service).GetDescription(settingId) ?? "" : "";
 
