@@ -376,6 +376,21 @@
             this.tsSep6.Name = "tsSep6";
             this.tsSep6.Size = new System.Drawing.Size(6, 25);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "x";
+            this.toolStripButton1.ToolTipText = "ExtractShit";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
             // tsbApplyProfile
             // 
             this.tsbApplyProfile.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -622,9 +637,12 @@
 
         }
 
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+
         #endregion
 
-        private ListViewEx lvSettings;
+        private nspector.ListViewEx lvSettings;
         private System.Windows.Forms.ColumnHeader chSettingID;
         private System.Windows.Forms.ColumnHeader chSettingValue;
         private System.Windows.Forms.ColumnHeader chSettingValueHex;
