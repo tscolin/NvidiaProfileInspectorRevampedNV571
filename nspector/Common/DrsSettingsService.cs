@@ -59,11 +59,13 @@ namespace nspector.Common
         {
             var drsPath = GetDrsProgramPath();
 
-            var si = new ProcessStartInfo();
-            si.UseShellExecute = true;
-            si.WorkingDirectory = drsPath;
-            si.Arguments = "-init";
-            si.FileName = Path.Combine(drsPath, "dbInstaller.exe");
+            var si = new ProcessStartInfo
+            {
+                UseShellExecute = true,
+                WorkingDirectory = drsPath,
+                Arguments = "-init",
+                FileName = Path.Combine(drsPath, "dbInstaller.exe")
+            };
             if (!AdminHelper.IsAdmin)
                 si.Verb = "runas";
             var p = Process.Start(si);
@@ -305,7 +307,9 @@ namespace nspector.Common
             removeFromModified = tmpRemoveFromModified;
         }
 
+#pragma warning disable IDE0060 // Remove unused parameter
         public uint GetDwordValueFromProfile(string profileName, uint settingId, bool returnDefaultValue = false, bool forceDedicatedScope = false)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             return DrsSession((hSession) =>
             {
@@ -372,15 +376,11 @@ namespace nspector.Common
             var settingMeta = meta.GetSettingMeta(setting.settingId);
             //settingMeta.SettingType = setting.settingType;
 
-            if (settingMeta.DwordValues == null)
-                settingMeta.DwordValues = new List<SettingValue<uint>>();
+            settingMeta.DwordValues ??= [];
 
+            settingMeta.StringValues ??= [];
 
-            if (settingMeta.StringValues == null)
-                settingMeta.StringValues = new List<SettingValue<string>>();
-
-            if (settingMeta.BinaryValues == null)
-                settingMeta.BinaryValues = new List<SettingValue<byte[]>>();
+            settingMeta.BinaryValues ??= [];
 
 
             var settingState = SettingState.NotAssiged;
@@ -520,7 +520,7 @@ namespace nspector.Common
 
             });
 
-            return result.OrderBy(x => x.SettingText).ThenBy(x => x.GroupName).ToList();
+            return [.. result.OrderBy(x => x.SettingText).ThenBy(x => x.GroupName)];
         }
 
         public void AddApplication(string profileName, string applicationName)

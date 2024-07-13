@@ -33,7 +33,7 @@ namespace nspector
             internal ListViewItem Item;
         }
 
-        private ArrayList _embeddedControls = new ArrayList();
+        private readonly ArrayList _embeddedControls = [];
 
         public ListViewEx()
         {
@@ -107,13 +107,11 @@ namespace nspector
 
         internal void AddEmbeddedControl(Control c, int col, int row, DockStyle dock)
         {
-            if (c == null)
-                throw new ArgumentNullException();
             if (col >= Columns.Count || row >= Items.Count)
                 throw new ArgumentOutOfRangeException();
 
             EmbeddedControl ec;
-            ec.Control = c;
+            ec.Control = c ?? throw new ArgumentNullException();
             ec.Column = col;
             ec.Row = row;
             ec.Dock = dock;
@@ -121,7 +119,7 @@ namespace nspector
 
             _embeddedControls.Add(ec);
 
-            c.Click += new EventHandler(_embeddedControl_Click);
+            c.Click += new EventHandler(EmbeddedControl_Click);
 
             this.Controls.Add(c);
         }
@@ -136,7 +134,7 @@ namespace nspector
                 EmbeddedControl ec = (EmbeddedControl)_embeddedControls[i];
                 if (ec.Control == c)
                 {
-                    c.Click -= new EventHandler(_embeddedControl_Click);
+                    c.Click -= new EventHandler(EmbeddedControl_Click);
                     this.Controls.Remove(c);
                     _embeddedControls.RemoveAt(i);
                     return;
@@ -156,7 +154,10 @@ namespace nspector
         [DefaultValue(View.LargeIcon)]
         internal new View View
         {
-            get => base.View;
+            get
+            {
+                return base.View;
+            }
             set
             {
                 foreach (EmbeddedControl ec in _embeddedControls)
@@ -242,12 +243,12 @@ namespace nspector
                                 if (size > 0)
                                 {
                                     var sb = new StringBuilder(size + 1);
-                                    var result = DragQueryFile(m.WParam, i, sb, size + 1);
+                                    _ = DragQueryFile(m.WParam, i, sb, size + 1);
                                     files.Add(sb.ToString());
                                 }
                             }
 
-                            OnDropFilesNative(files.ToArray());
+                            OnDropFilesNative([.. files]);
                         }
                     }
 
@@ -257,7 +258,7 @@ namespace nspector
             base.WndProc(ref m);
         }
 
-        private void _embeddedControl_Click(object sender, EventArgs e)
+        private void EmbeddedControl_Click(object sender, EventArgs e)
         {
             foreach (EmbeddedControl ec in _embeddedControls)
             {

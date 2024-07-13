@@ -234,7 +234,7 @@ namespace nspector.Native.NVAPI2
 
         public byte[] binaryValue
         {
-            get
+            readonly get
             {
                 var length = BitConverter.ToUInt32(rawData, 0);
                 var tmpData = new byte[length];
@@ -255,7 +255,7 @@ namespace nspector.Native.NVAPI2
 
         public uint dwordValue
         {
-            get => BitConverter.ToUInt32(rawData, 0);
+            readonly get => BitConverter.ToUInt32(rawData, 0);
 
             set
             {
@@ -266,7 +266,7 @@ namespace nspector.Native.NVAPI2
 
         public string stringValue
         {
-            get => Encoding.Unicode.GetString(rawData).Split(new[] { '\0' }, 2)[0];
+            readonly get => Encoding.Unicode.GetString(rawData).Split(new[] { '\0' }, 2)[0];
 
             set
             {
@@ -278,7 +278,7 @@ namespace nspector.Native.NVAPI2
 
         public string ansiStringValue
         {
-            get => Encoding.Default.GetString(rawData).Split(new[] { '\0' }, 2)[0];
+            readonly get => Encoding.Default.GetString(rawData).Split(new[] { '\0' }, 2)[0];
 
             set
             {
@@ -336,7 +336,7 @@ namespace nspector.Native.NVAPI2
     [StructLayout(LayoutKind.Sequential, Pack = 8, CharSet = CharSet.Unicode)]
     internal struct NVDRS_APPLICATION_V3
     {
-        public uint isMetro { get => ((uint)((bitvector1 & 1))); set => bitvector1 = ((uint)((value | bitvector1))); }
+        public uint isMetro { readonly get => ((uint)((bitvector1 & 1))); set => bitvector1 = ((uint)((value | bitvector1))); }
 
         public uint version;
         public uint isPredefined;
@@ -435,7 +435,7 @@ namespace nspector.Native.NVAPI2
 
         private static T GetDelegateOfFunction<T>(IntPtr pLib, string signature)
         {
-            T FuncT = default(T);
+            T FuncT = default;
             IntPtr FuncAddr = GetProcAddress(pLib, signature);
             if (FuncAddr != IntPtr.Zero)
                 FuncT = (T)(object)Marshal.GetDelegateForFunctionPointer(FuncAddr, typeof(T));
@@ -563,8 +563,7 @@ namespace nspector.Native.NVAPI2
         {
             NvAPI_Status res;
 
-            IntPtr pSettings;
-            NativeArrayHelper.SetArrayData(apps, out pSettings);
+            NativeArrayHelper.SetArrayData(apps, out IntPtr pSettings);
             try
             {
                 res = DRS_EnumApplicationsInternal(hSession, hProfile, startIndex, ref appCount, pSettings);
@@ -609,8 +608,7 @@ namespace nspector.Native.NVAPI2
         {
             NvAPI_Status res;
 
-            IntPtr pSettings;
-            NativeArrayHelper.SetArrayData(settings, out pSettings);
+            NativeArrayHelper.SetArrayData(settings, out IntPtr pSettings);
             try
             {
                 res = DRS_EnumSettingsInternal(hSession, hProfile, startIndex, ref settingsCount, pSettings);
@@ -630,14 +628,13 @@ namespace nspector.Native.NVAPI2
         {
             NvAPI_Status res;
             var settingIdArray = new uint[maxCount];
-            var pSettingIds = IntPtr.Zero;
-            NativeArrayHelper.SetArrayData(settingIdArray, out pSettingIds);
+            NativeArrayHelper.SetArrayData(settingIdArray, out IntPtr pSettingIds);
             try
             {
                 res = DRS_EnumAvailableSettingIdsInternal(pSettingIds, ref maxCount);
 
                 settingIdArray = NativeArrayHelper.GetArrayData<uint>(pSettingIds, (int)maxCount);
-                settingIds = settingIdArray.ToList();
+                settingIds = [.. settingIdArray];
             }
             finally
             {

@@ -7,7 +7,7 @@ namespace nspector.Common.Helper
 {
     internal static class XMLHelper<T> where T : new()
     {
-        static XmlSerializer xmlSerializer;
+        static readonly XmlSerializer xmlSerializer;
 
         static XMLHelper()
         {

@@ -6,17 +6,11 @@ using System.Linq;
 
 namespace nspector.Common.Meta
 {
-    internal class CustomSettingMetaService : ISettingMetaService
+    internal class CustomSettingMetaService(CustomSettingNames customSettings, SettingMetaSource sourceOverride = SettingMetaSource.CustomSettings) : ISettingMetaService
     {
 
-        private readonly CustomSettingNames customSettings;
-        private readonly SettingMetaSource _source;
-
-        public CustomSettingMetaService(CustomSettingNames customSettings, SettingMetaSource sourceOverride = SettingMetaSource.CustomSettings)
-        {
-            this.customSettings = customSettings;
-            _source = sourceOverride;
-        }
+        private readonly CustomSettingNames customSettings = customSettings;
+        private readonly SettingMetaSource _source = sourceOverride;
 
         public NVDRS_SETTING_TYPE? GetSettingValueType(uint settingId)
         {
@@ -30,16 +24,13 @@ namespace nspector.Common.Meta
         {
             if (string.IsNullOrEmpty(type)) return null;
 
-            switch (type.ToLowerInvariant())
+            return type.ToLowerInvariant() switch
             {
-                case "dword":
-                    return NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
-                case "string":
-                    return NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE;
-                case "binary":
-                    return NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE;
-                default: throw new ArgumentOutOfRangeException(type);
-            }
+                "dword" => (NVDRS_SETTING_TYPE?)NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE,
+                "string" => (NVDRS_SETTING_TYPE?)NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE,
+                "binary" => (NVDRS_SETTING_TYPE?)NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE,
+                _ => throw new ArgumentOutOfRangeException(type),
+            };
         }
 
         public string GetSettingName(uint settingId)

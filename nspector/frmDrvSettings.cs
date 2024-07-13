@@ -26,12 +26,12 @@ namespace nspector
         private readonly DrsScannerService _scanner = DrsServiceLocator.ScannerService;
         private readonly DrsImportService _import = DrsServiceLocator.ImportService;
 
-        private List<SettingItem> _currentProfileSettingItems = new List<SettingItem>();
+        private List<SettingItem> _currentProfileSettingItems = [];
         private bool _alreadyScannedForPredefinedSettings = false;
         private IntPtr _taskbarParent = IntPtr.Zero;
         private bool _activated = false;
         private bool _isStartup = true;
-        private bool _skipScan = false;
+        private readonly bool _skipScan = false;
 
         private string _baseProfileName = "";
         private bool _isWin7TaskBar = false;
@@ -47,7 +47,7 @@ namespace nspector
             switch (m.Msg)
             {
                 case MessageHelper.WM_COPYDATA:
-                    MessageHelper.COPYDATASTRUCT copyDataStruct = new MessageHelper.COPYDATASTRUCT();
+                    MessageHelper.COPYDATASTRUCT copyDataStruct = new();
                     Type copyDataType = copyDataStruct.GetType();
                     copyDataStruct = (MessageHelper.COPYDATASTRUCT)m.GetLParam(copyDataType);
                     if (copyDataStruct.lpData.Equals("ProfilesImported"))
@@ -83,9 +83,11 @@ namespace nspector
 
             var settingName = isDevMode ? $"0x{setting.SettingId:X8} {setting.SettingText}" : setting.SettingText;
 
-            var item = new ListViewItem(settingName);
-            item.Tag = setting.SettingId;
-            item.Group = group;
+            var item = new ListViewItem(settingName)
+            {
+                Tag = setting.SettingId,
+                Group = group
+            };
 
             item.SubItems.Add(setting.ValueText);
             item.SubItems.Add(setting.ValueRaw);
@@ -179,7 +181,7 @@ namespace nspector
             finally
             {
                 lvSettings.EndUpdate();
-                ((ListViewGroupSorter)lvSettings).SortGroups(true);
+                ((ListViewGroupSorter)lvSettings).SortGroups(true, []);
 
                 GC.Collect();
                 for (int i = 0; i < lvSettings.Items.Count; i++)
@@ -271,9 +273,7 @@ namespace nspector
                         cbValues.Items.RemoveAt(0);
                     }
 
-
-                    var referenceSettings =
-                        DrsServiceLocator.ReferenceSettings?.Settings.FirstOrDefault(s => s.SettingId == settingid);
+                    var referenceSettings = DrsServiceLocator.ReferenceSettings?.Settings.FirstOrDefault(s => s.SettingId == settingid);
 
                     if (string.IsNullOrEmpty(settingMeta.Description) && !(referenceSettings?.HasConstraints == true))
                     {
@@ -363,7 +363,6 @@ namespace nspector
                     valueHasChanged = currentProfileItem.ValueRaw != stringBehind;
                 }
 
-
                 if (valueHasChanged || activeImages.Contains(lvItem.ImageIndex))
                 {
                     lvItem.ForeColor = SystemColors.ControlText;
@@ -426,8 +425,7 @@ namespace nspector
 
         private void ResetCurrentProfile()
         {
-            bool removeFromModified = false;
-            _drs.ResetProfile(_CurrentProfile, out removeFromModified);
+            _drs.ResetProfile(_CurrentProfile, out bool removeFromModified);
 
             if (removeFromModified)
             {
@@ -443,8 +441,7 @@ namespace nspector
             {
                 var settingId = (uint)lvSettings.SelectedItems[0].Tag;
 
-                bool removeFromModified;
-                _drs.ResetValue(_CurrentProfile, settingId, out removeFromModified);
+                _drs.ResetValue(_CurrentProfile, settingId, out bool removeFromModified);
 
                 if (removeFromModified)
                     RemoveFromModifiedProfiles(_CurrentProfile);
@@ -459,8 +456,7 @@ namespace nspector
             {
                 var settingId = (uint)lvSettings.SelectedItems[0].Tag;
 
-                bool removeFromModified;
-                _drs.DeleteValue(_CurrentProfile, settingId, out removeFromModified);
+                _drs.DeleteValue(_CurrentProfile, settingId, out bool removeFromModified);
 
                 if (removeFromModified)
                     RemoveFromModifiedProfiles(_CurrentProfile);
@@ -951,9 +947,11 @@ namespace nspector
 
         private void tsbAddApplication_Click(object sender, EventArgs e)
         {
-            var openDialog = new OpenFileDialog();
-            openDialog.DefaultExt = "*.exe";
-            openDialog.Filter = "Application EXE Name|*.exe|Application Absolute Path|*.exe";
+            var openDialog = new OpenFileDialog
+            {
+                DefaultExt = "*.exe",
+                Filter = "Application EXE Name|*.exe|Application Absolute Path|*.exe"
+            };
 
             if (openDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -1056,10 +1054,12 @@ namespace nspector
 
         private void ExportCurrentProfile(bool includePredefined)
         {
-            var saveDialog = new SaveFileDialog();
-            saveDialog.DefaultExt = "*.nip";
-            saveDialog.Filter = Application.ProductName + " Profiles|*.nip";
-            saveDialog.FileName = _CurrentProfile + ".nip";
+            var saveDialog = new SaveFileDialog
+            {
+                DefaultExt = "*.nip",
+                Filter = Application.ProductName + " Profiles|*.nip",
+                FileName = _CurrentProfile + ".nip"
+            };
             if (saveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 var profiles = new[] { _CurrentProfile }.ToList();
@@ -1106,9 +1106,11 @@ namespace nspector
 
         private void exportAllProfilesNVIDIATextFormatToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var saveDialog = new SaveFileDialog();
-            saveDialog.DefaultExt = "*.txt";
-            saveDialog.Filter = "Profiles (NVIDIA Text Format)|*.txt";
+            var saveDialog = new SaveFileDialog
+            {
+                DefaultExt = "*.txt",
+                Filter = "Profiles (NVIDIA Text Format)|*.txt"
+            };
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {
                 _import.ExportAllProfilesToNvidiaTextFile(saveDialog.FileName);
@@ -1131,9 +1133,11 @@ namespace nspector
 
         private void importAllProfilesNVIDIATextFormatToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var openDialog = new OpenFileDialog();
-            openDialog.DefaultExt = "*.txt";
-            openDialog.Filter = "Profiles (NVIDIA Text Format)|*.txt";
+            var openDialog = new OpenFileDialog
+            {
+                DefaultExt = "*.txt",
+                Filter = "Profiles (NVIDIA Text Format)|*.txt"
+            };
             if (openDialog.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -1154,9 +1158,11 @@ namespace nspector
 
         private void importProfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var openDialog = new OpenFileDialog();
-            openDialog.DefaultExt = "*.nip";
-            openDialog.Filter = Application.ProductName + " Profiles|*.nip";
+            var openDialog = new OpenFileDialog
+            {
+                DefaultExt = "*.nip",
+                Filter = Application.ProductName + " Profiles|*.nip"
+            };
             if (openDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 ImportProfiles(openDialog.FileName);
@@ -1173,7 +1179,6 @@ namespace nspector
                 cbProfiles.Select(cbProfiles.Text.Length, 0);
             }
         }
-
 
         public static void ShowImportDoneMessage(string importReport)
         {
@@ -1207,9 +1212,7 @@ namespace nspector
                     return;
                 }
 
-
-                var profileName = "";
-                var exeFile = ShortcutResolver.ResolveExecuteable(files[0], out profileName);
+                var exeFile = ShortcutResolver.ResolveExecuteable(files[0], out string profileName);
                 if (!string.IsNullOrEmpty(exeFile))
                 {
                     var profiles = _scanner.FindProfilesUsingApplication(exeFile);
@@ -1239,7 +1242,9 @@ namespace nspector
         {
             if (isDevMode && lvSettings.SelectedItems != null && lvSettings.SelectedItems.Count == 1)
             {
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
                 var settingId = ((uint)lvSettings.SelectedItems[0].Tag);
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
                 var settingName = lvSettings.SelectedItems[0].Text;
                 //Clipboard.SetText(string.Format($"0x{settingId:X8} {settingName}"));
                 Clipboard.SetText($"{settingName}");
@@ -1339,8 +1344,7 @@ namespace nspector
         private void SearchSetting()
         {
             string inputString = "";
-            if (InputBox.Show("Search Setting", "Please enter setting name:", ref inputString, new List<string>(), "",
-                    2048) == System.Windows.Forms.DialogResult.OK)
+            if (InputBox.Show("Search Setting", "Please enter setting name:", ref inputString, [], "", 2048) == System.Windows.Forms.DialogResult.OK)
             {
                 var lowerInput = inputString.Trim().ToLowerInvariant();
                 lvSettings.BeginUpdate();

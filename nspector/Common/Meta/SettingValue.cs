@@ -1,14 +1,9 @@
 ﻿namespace nspector.Common.Meta
 {
-    internal class SettingValue<T>
+    internal class SettingValue<T>(SettingMetaSource source)
     {
 
-        public SettingMetaSource ValueSource;
-
-        public SettingValue(SettingMetaSource source)
-        {
-            ValueSource = source;
-        }
+        public SettingMetaSource ValueSource = source;
 
         public int ValuePos { get; set; }
         public string ValueName { get; set; }

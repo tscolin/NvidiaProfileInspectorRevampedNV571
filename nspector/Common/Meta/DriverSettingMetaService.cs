@@ -9,7 +9,7 @@ namespace nspector.Common.Meta
     internal class DriverSettingMetaService : ISettingMetaService
     {
 
-        private readonly Dictionary<uint, SettingMeta> _settingMetaCache = new Dictionary<uint, SettingMeta>();
+        private readonly Dictionary<uint, SettingMeta> _settingMetaCache = [];
         private readonly List<uint> _settingIds;
 
         public DriverSettingMetaService()
@@ -19,7 +19,9 @@ namespace nspector.Common.Meta
 
         private List<uint> InitSettingIds()
         {
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
             var settingIds = new List<uint>();
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
 
             var nvRes = nvw.DRS_EnumAvailableSettingIds(out settingIds, 512);
             if (nvRes != NvAPI_Status.NVAPI_OK)
@@ -30,8 +32,10 @@ namespace nspector.Common.Meta
 
         private SettingMeta GetDriverSettingMetaInternal(uint settingId)
         {
-            var values = new NVDRS_SETTING_VALUES();
-            values.version = nvw.NVDRS_SETTING_VALUES_VER;
+            var values = new NVDRS_SETTING_VALUES
+            {
+                version = nvw.NVDRS_SETTING_VALUES_VER
+            };
             uint valueCount = 255;
 
             var nvRes = nvw.DRS_EnumAvailableSettingValues(settingId, ref valueCount, ref values);
@@ -62,7 +66,7 @@ namespace nspector.Common.Meta
             if (values.settingType == NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE)
             {
                 result.DefaultDwordValue = values.defaultValue.dwordValue;
-                result.DwordValues = new List<SettingValue<uint>>();
+                result.DwordValues = [];
                 for (int i = 0; i < values.numSettingValues; i++)
                 {
                     result.DwordValues.Add(
@@ -77,7 +81,7 @@ namespace nspector.Common.Meta
             if (values.settingType == NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE)
             {
                 result.DefaultStringValue = values.defaultValue.stringValue;
-                result.StringValues = new List<SettingValue<string>>();
+                result.StringValues = [];
                 for (int i = 0; i < values.numSettingValues; i++)
                 {
                     var strValue = values.settingValues[i].stringValue;
@@ -96,7 +100,7 @@ namespace nspector.Common.Meta
             if (values.settingType == NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE)
             {
                 result.DefaultBinaryValue = values.defaultValue.binaryValue;
-                result.BinaryValues = new List<SettingValue<byte[]>>();
+                result.BinaryValues = [];
                 for (int i = 0; i < values.numSettingValues; i++)
                 {
                     var binValue = values.settingValues[i].binaryValue;
