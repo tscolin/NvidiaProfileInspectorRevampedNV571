@@ -4,7 +4,7 @@ namespace nspector.Common.Helper
 {
     public static class AdminHelper
     {
-        private static bool isAdmin = false;
+        private static readonly bool isAdmin = false;
         static AdminHelper()
         {
             var identity = WindowsIdentity.GetCurrent();

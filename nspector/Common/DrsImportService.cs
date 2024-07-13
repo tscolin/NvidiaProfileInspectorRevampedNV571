@@ -9,24 +9,16 @@ using nspector.Common.Helper;
 
 namespace nspector.Common
 {
-    internal class DrsImportService : DrsSettingsServiceBase
+    internal class DrsImportService(
+        DrsSettingsMetaService metaService,
+        DrsSettingsService settingService,
+        DrsScannerService scannerService,
+        DrsDecrypterService decrypterService) : DrsSettingsServiceBase(metaService)
     {
 
-        private readonly DrsSettingsService _SettingService;
-        private readonly DrsScannerService _ScannerService;
-        private readonly DrsDecrypterService _DecrypterService;
-
-        public DrsImportService(
-            DrsSettingsMetaService metaService,
-            DrsSettingsService settingService,
-            DrsScannerService scannerService,
-            DrsDecrypterService decrypterService)
-            : base(metaService)
-        {
-            _SettingService = settingService;
-            _ScannerService = scannerService;
-            _DecrypterService = decrypterService;
-        }
+        private readonly DrsSettingsService _SettingService = settingService;
+        private readonly DrsScannerService _ScannerService = scannerService;
+        private readonly DrsDecrypterService _DecrypterService = decrypterService;
 
         internal void ExportAllProfilesToNvidiaTextFile(string filename)
         {
@@ -119,8 +111,7 @@ namespace nspector.Common
 
                     if (hProfile != IntPtr.Zero)
                     {
-                        var modified = false;
-                        _SettingService.ResetProfile(profile.ProfileName, out modified);
+                        _SettingService.ResetProfile(profile.ProfileName, out bool modified);
                         try
                         {
                             UpdateApplications(hSession, hProfile, profile);
@@ -193,6 +184,7 @@ namespace nspector.Common
             }
         }
 
+     /*
         private uint GetImportValue(uint settingId, Profile importProfile)
         {
             var setting = importProfile.Settings
@@ -203,6 +195,7 @@ namespace nspector.Common
 
             return 0;
         }
+     */
 
         private ProfileSetting GetImportProfileSetting(uint settingId, Profile importProfile)
         {

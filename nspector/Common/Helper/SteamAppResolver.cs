@@ -14,7 +14,7 @@ namespace nspector.Common.Helper
         public const string SteamUrlPattern = "steam://rungameid/";
         public const string SteamArgumentPattern = "-applaunch";
 
-        private byte[] _appinfoBytes;
+        private readonly byte[] _appinfoBytes;
 
         public SteamAppResolver()
         {
@@ -44,8 +44,7 @@ namespace nspector.Common.Helper
             if (url.StartsWith(SteamUrlPattern))
             {
                 var appIdStr = url.Substring(SteamUrlPattern.Length);
-                int appid = 0;
-                if (int.TryParse(appIdStr, out appid))
+                if (int.TryParse(appIdStr, out int appid))
                 {
                     return FindCommonExecutableForApp(appid);
                 }
@@ -61,8 +60,7 @@ namespace nspector.Common.Helper
                 foreach (Match m in rxRungame.Matches(arguments))
                 {
                     var appIdStr = m.Result("${appid}");
-                    int appid = 0;
-                    if (int.TryParse(appIdStr, out appid))
+                    if (int.TryParse(appIdStr, out int appid))
                     {
                         return FindCommonExecutableForApp(appid);
                     }
@@ -85,7 +83,7 @@ namespace nspector.Common.Helper
         private List<string> FindAllExecutablesForApp(int appid)
         {
             if (_appinfoBytes == null)
-                return new List<string>();
+                return [];
 
             var bid = BitConverter.GetBytes(appid);
             int offset = 0;
@@ -95,13 +93,13 @@ namespace nspector.Common.Helper
 
             var appidOffset = FindOffset(_appinfoBytes, appidPattern, offset);
             if (appidOffset == -1)
-                return new List<string>();
+                return [];
             else
                 offset = appidOffset + appidPattern.Length;
 
             var launchOffset = FindOffset(_appinfoBytes, launchPattern, offset);
             if (launchOffset == -1)
-                return new List<string>();
+                return [];
             else
                 offset = launchOffset;
 
@@ -122,7 +120,6 @@ namespace nspector.Common.Helper
                 }
 
                 var valueName = ReadCString(bytes, ref offset);
-                var valueString = "";
                 switch (valueType)
                 {
                     case 0:
@@ -132,7 +129,7 @@ namespace nspector.Common.Helper
                         }
                     case 1:
                         {
-                            valueString = ReadCString(bytes, ref offset);
+                            string valueString = ReadCString(bytes, ref offset);
 
                             if (valueName == "executable" && valueString.EndsWith(".exe"))
                             {

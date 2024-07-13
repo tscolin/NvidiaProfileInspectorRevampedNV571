@@ -30,30 +30,25 @@ namespace nspector.Common.Import
                 settingUnion = setting.predefinedValue;
             }
 
-            switch (setting.settingType)
+            return setting.settingType switch
             {
-                case NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE:
-                    return settingUnion.dwordValue.ToString();
-                case NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE:
-                    return settingUnion.ansiStringValue;
-                case NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE:
-                    return settingUnion.stringValue;
-                case NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE:
-                    return Convert.ToBase64String(settingUnion.binaryValue);
-                default:
-                    throw new Exception("invalid setting type");
-            }
+                NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE => settingUnion.dwordValue.ToString(),
+                NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE => settingUnion.ansiStringValue,
+                NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE => settingUnion.stringValue,
+                NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE => Convert.ToBase64String(settingUnion.binaryValue),
+                _ => throw new Exception("invalid setting type"),
+            };
         }
 
         private static SettingValueType MapValueType(NVDRS_SETTING_TYPE input)
         {
-            switch (input)
+            return input switch
             {
-                case NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE: return SettingValueType.Binary;
-                case NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE: return SettingValueType.AnsiString;
-                case NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE: return SettingValueType.String;
-                default: return SettingValueType.Dword;
-            }
+                NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE => SettingValueType.Binary,
+                NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE => SettingValueType.AnsiString,
+                NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE => SettingValueType.String,
+                _ => SettingValueType.Dword,
+            };
         }
 
         public static NVDRS_SETTING ConvertProfileSettingToDrsSetting(ProfileSetting setting)
@@ -94,13 +89,13 @@ namespace nspector.Common.Import
 
         private static NVDRS_SETTING_TYPE MapValueType(SettingValueType input)
         {
-            switch (input)
+            return input switch
             {
-                case SettingValueType.Binary: return NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE;
-                case SettingValueType.AnsiString: return NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE;
-                case SettingValueType.String: return NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE;
-                default: return NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE;
-            }
+                SettingValueType.Binary => NVDRS_SETTING_TYPE.NVDRS_BINARY_TYPE,
+                SettingValueType.AnsiString => NVDRS_SETTING_TYPE.NVDRS_STRING_TYPE,
+                SettingValueType.String => NVDRS_SETTING_TYPE.NVDRS_WSTRING_TYPE,
+                _ => NVDRS_SETTING_TYPE.NVDRS_DWORD_TYPE,
+            };
         }
 
     }

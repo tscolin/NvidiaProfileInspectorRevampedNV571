@@ -1,17 +1,14 @@
-﻿using System;
+﻿using nspector.Common;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using nspector.Common;
-using nspector.Common.Helper;
-using nspector.Common.Import;
 
 namespace nspector
 {
     internal partial class frmExportProfiles : Form
     {
-        frmDrvSettings settingsOwner = null;
+        private frmDrvSettings settingsOwner = null;
 
         internal frmExportProfiles()
         {
@@ -28,7 +25,6 @@ namespace nspector
             this.ShowDialog();
         }
 
-
         private void updateProfileList()
         {
             lvProfiles.Items.Clear();
@@ -41,7 +37,6 @@ namespace nspector
                 }
             }
         }
-
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -74,9 +69,11 @@ namespace nspector
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.DefaultExt = "*.nip";
-            sfd.Filter = Application.ProductName + " Profiles|*.nip";
+            SaveFileDialog sfd = new()
+            {
+                DefaultExt = "*.nip",
+                Filter = Application.ProductName + " Profiles|*.nip"
+            };
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 var profileNamesToExport = new List<string>();
@@ -112,9 +109,5 @@ namespace nspector
             else
                 btnExport.Enabled = false;
         }
-
-
-
     }
-
 }
