@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
 
 namespace nspector.Native.NVAPI2
 {
@@ -158,7 +159,7 @@ namespace nspector.Native.NVAPI2
         public uint numSettingValues;
         public NVDRS_SETTING_TYPE settingType;
         public NVDRS_SETTING_UNION defaultValue;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = (int)NvapiDrsWrapper.NVAPI_SETTING_MAX_VALUES)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = (int)NVAPI_SETTING_MAX_VALUES)]
         public NVDRS_SETTING_UNION[] settingValues;
     }
 
@@ -167,7 +168,7 @@ namespace nspector.Native.NVAPI2
     //{
     //    public uint valueLength;
 
-    //    [MarshalAs(UnmanagedType.ByValArray, SizeConst = (int)NvapiDrsWrapper.NVAPI_BINARY_DATA_MAX)]
+    //    [MarshalAs(UnmanagedType.ByValArray, SizeConst = (int)NVAPI_BINARY_DATA_MAX)]
     //    public byte[] valueData;
     //}
 
@@ -184,7 +185,7 @@ namespace nspector.Native.NVAPI2
     //    public NVDRS_BINARY_SETTING binaryValue;
 
     //    [FieldOffsetAttribute(0)]
-    //    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    //    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
     //    public string stringValue;
     //}
 
@@ -220,7 +221,7 @@ namespace nspector.Native.NVAPI2
 
     //    }
 
-    //    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+    //    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
     //    private string stringRaw;
 
     //}
@@ -293,7 +294,7 @@ namespace nspector.Native.NVAPI2
     internal struct NVDRS_SETTING
     {
         public uint version;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
         public string settingName;
         public uint settingId;
         public NVDRS_SETTING_TYPE settingType;
@@ -309,11 +310,11 @@ namespace nspector.Native.NVAPI2
     {
         public uint version;
         public uint isPredefined;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
         public string appName;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
         public string userFriendlyName;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
         public string launcher;
     }
 
@@ -322,13 +323,13 @@ namespace nspector.Native.NVAPI2
     {
         public uint version;
         public uint isPredefined;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
         public string appName;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
         public string userFriendlyName;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
         public string launcher;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
         public string fileInFolder;
     }
 
@@ -339,13 +340,13 @@ namespace nspector.Native.NVAPI2
 
         public uint version;
         public uint isPredefined;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
         public string appName;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
         public string userFriendlyName;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
         public string launcher;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
         public string fileInFolder;
         private uint bitvector1;
     }
@@ -354,7 +355,7 @@ namespace nspector.Native.NVAPI2
     internal struct NVDRS_PROFILE
     {
         public uint version;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)]
         public string profileName;
         public NVDRS_GPU_SUPPORT gpuSupport;
         public uint isPredefined;
@@ -362,7 +363,7 @@ namespace nspector.Native.NVAPI2
         public uint numOfSettings;
     }
 
-    internal class NvapiDrsWrapper
+    internal class 
     {
 
         #region CONSTANTS
@@ -390,7 +391,7 @@ namespace nspector.Native.NVAPI2
         #endregion
 
 
-        private NvapiDrsWrapper() { }
+        private ) { }
 
         [DllImport("kernel32.dll")]
         private static extern IntPtr LoadLibrary(String dllname);
@@ -460,15 +461,15 @@ namespace nspector.Native.NVAPI2
         public static readonly UnloadDelegate Unload;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status GetErrorMessageDelegate(NvAPI_Status nr, [MarshalAs(UnmanagedType.LPStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_SHORT_STRING_MAX)] StringBuilder szDesc);
+        public delegate NvAPI_Status GetErrorMessageDelegate(NvAPI_Status nr, [MarshalAs(UnmanagedType.LPStr, SizeConst = (int)NVAPI_SHORT_STRING_MAX)] StringBuilder szDesc);
         public static readonly GetErrorMessageDelegate GetErrorMessage;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status GetInterfaceVersionStringDelegate([MarshalAs(UnmanagedType.LPStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_SHORT_STRING_MAX)] StringBuilder szDesc);
+        public delegate NvAPI_Status GetInterfaceVersionStringDelegate([MarshalAs(UnmanagedType.LPStr, SizeConst = (int)NVAPI_SHORT_STRING_MAX)] StringBuilder szDesc);
         public static readonly GetInterfaceVersionStringDelegate GetInterfaceVersionString;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status SYS_GetDriverAndBranchVersionDelegate(ref uint pDriverVersion, [MarshalAs(UnmanagedType.LPStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_SHORT_STRING_MAX)] StringBuilder szBuildBranchString);
+        public delegate NvAPI_Status SYS_GetDriverAndBranchVersionDelegate(ref uint pDriverVersion, [MarshalAs(UnmanagedType.LPStr, SizeConst = (int)NVAPI_SHORT_STRING_MAX)] StringBuilder szBuildBranchString);
         public static readonly SYS_GetDriverAndBranchVersionDelegate SYS_GetDriverAndBranchVersion;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -488,19 +489,19 @@ namespace nspector.Native.NVAPI2
         public static readonly DRS_SaveSettingsDelegate DRS_SaveSettings;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status DRS_LoadSettingsFromFileDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)] StringBuilder fileName);
+        public delegate NvAPI_Status DRS_LoadSettingsFromFileDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder fileName);
         public static readonly DRS_LoadSettingsFromFileDelegate DRS_LoadSettingsFromFile;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status DRS_SaveSettingsToFileDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)] StringBuilder fileName);
+        public delegate NvAPI_Status DRS_SaveSettingsToFileDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder fileName);
         public static readonly DRS_SaveSettingsToFileDelegate DRS_SaveSettingsToFile;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status DRS_LoadSettingsFromFileExDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)] StringBuilder fileName);
+        public delegate NvAPI_Status DRS_LoadSettingsFromFileExDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder fileName);
         public static readonly DRS_LoadSettingsFromFileExDelegate DRS_LoadSettingsFromFileEx;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status DRS_SaveSettingsToFileExDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)] StringBuilder fileName);
+        public delegate NvAPI_Status DRS_SaveSettingsToFileExDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder fileName);
         public static readonly DRS_SaveSettingsToFileExDelegate DRS_SaveSettingsToFileEx;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -512,7 +513,7 @@ namespace nspector.Native.NVAPI2
         public static readonly DRS_DeleteProfileDelegate DRS_DeleteProfile;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status DRS_SetCurrentGlobalProfileDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)] StringBuilder wszGlobalProfileName);
+        public delegate NvAPI_Status DRS_SetCurrentGlobalProfileDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder wszGlobalProfileName);
         public static readonly DRS_SetCurrentGlobalProfileDelegate DRS_SetCurrentGlobalProfile;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -528,7 +529,7 @@ namespace nspector.Native.NVAPI2
         public static readonly DRS_SetProfileInfoDelegate DRS_SetProfileInfo;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status DRS_FindProfileByNameDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)] StringBuilder profileName, ref IntPtr phProfile);
+        public delegate NvAPI_Status DRS_FindProfileByNameDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder profileName, ref IntPtr phProfile);
         public static readonly DRS_FindProfileByNameDelegate DRS_FindProfileByName;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -548,11 +549,11 @@ namespace nspector.Native.NVAPI2
         public static readonly DRS_DeleteApplicationExDelegate DRS_DeleteApplicationEx;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status DRS_DeleteApplicationDelegate(IntPtr hSession, IntPtr hProfile, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)] StringBuilder appName);
+        public delegate NvAPI_Status DRS_DeleteApplicationDelegate(IntPtr hSession, IntPtr hProfile, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder appName);
         public static readonly DRS_DeleteApplicationDelegate DRS_DeleteApplication;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status DRS_GetApplicationInfoDelegate(IntPtr hSession, IntPtr hProfile, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)] StringBuilder appName, ref NVDRS_APPLICATION_V3 pApplication);
+        public delegate NvAPI_Status DRS_GetApplicationInfoDelegate(IntPtr hSession, IntPtr hProfile, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder appName, ref NVDRS_APPLICATION_V3 pApplication);
         public static readonly DRS_GetApplicationInfoDelegate DRS_GetApplicationInfo;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -578,7 +579,7 @@ namespace nspector.Native.NVAPI2
 
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status DRS_FindApplicationByNameDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)] StringBuilder appName, ref IntPtr phProfile, ref NVDRS_APPLICATION_V3 pApplication);
+        public delegate NvAPI_Status DRS_FindApplicationByNameDelegate(IntPtr hSession, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder appName, ref IntPtr phProfile, ref NVDRS_APPLICATION_V3 pApplication);
         public static readonly DRS_FindApplicationByNameDelegate DRS_FindApplicationByName;
 
         public static NvAPI_Status DRS_SetSetting(IntPtr hSession, IntPtr hProfile, ref NVDRS_SETTING pSetting)
@@ -667,11 +668,11 @@ namespace nspector.Native.NVAPI2
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status DRS_GetSettingIdFromNameDelegate([MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)] StringBuilder settingName, ref uint pSettingId);
+        public delegate NvAPI_Status DRS_GetSettingIdFromNameDelegate([MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder settingName, ref uint pSettingId);
         public static readonly DRS_GetSettingIdFromNameDelegate DRS_GetSettingIdFromName;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate NvAPI_Status DRS_GetSettingNameFromIdDelegate(uint settingId, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NvapiDrsWrapper.NVAPI_UNICODE_STRING_MAX)] StringBuilder pSettingName);
+        public delegate NvAPI_Status DRS_GetSettingNameFromIdDelegate(uint settingId, [MarshalAs(UnmanagedType.LPWStr, SizeConst = (int)NVAPI_UNICODE_STRING_MAX)] StringBuilder pSettingName);
         public static readonly DRS_GetSettingNameFromIdDelegate DRS_GetSettingNameFromId;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -695,7 +696,7 @@ namespace nspector.Native.NVAPI2
         public static readonly DRS_GetBaseProfileDelegate DRS_GetBaseProfile;
 
         #endregion
-        static NvapiDrsWrapper()
+        static )
         {
             IntPtr lib = LoadLibrary(GetDllName());
             if (lib != IntPtr.Zero)
@@ -704,8 +705,9 @@ namespace nspector.Native.NVAPI2
                 if (nvapi_QueryInterface != null)
                 {
                     GetDelegate(0x0150E828, out NvAPI_Initialize);
-                    if (NvAPI_Initialize() == NvAPI_Status.NVAPI_OK)
-                    {
+                    var status = NvAPI_Initialize();
+                    if (status == NvAPI_Status.NVAPI_OK)
+		    {
                         #region FUNCTION IDs
                         GetDelegate(0x0150E828, out Initialize);
                         GetDelegate(0xD22BDD7E, out Unload);
@@ -748,6 +750,11 @@ namespace nspector.Native.NVAPI2
                         GetDelegate(0x7DD5B261, out DRS_RestoreProfileDefaultSetting, 0x53F0381E);
                         GetDelegate(0xDA8466A0, out DRS_GetBaseProfile);
                         #endregion
+                    }
+		    else
+                    {
+                        MessageBox.Show("NvAPI_Initialize failed with status: " + status, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        throw new Exception("NvAPI_Initialize failed with status: " + status);
                     }
                 }
             }
