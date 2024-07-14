@@ -59,6 +59,8 @@
             this.tscbShowScannedUnknownSettings = new System.Windows.Forms.ToolStripButton();
             this.tsbBitValueEditor = new System.Windows.Forms.ToolStripButton();
             this.tsSep6 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbApplyProfile = new System.Windows.Forms.ToolStripButton();
             this.tslFilter = new System.Windows.Forms.ToolStripLabel();
             this.cbFilter = new System.Windows.Forms.ToolStripComboBox();
