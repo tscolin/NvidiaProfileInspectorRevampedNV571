@@ -1,7 +1,7 @@
 **Note:**
-This fork will be updated for the time being. 
-Please test your option suggestions, or ask a friend with the right hardware to do so, using the Reference.xml.
+With the main repo from Orbmu2k having gone without updates in over 2 yeras, this fork aims to collect changes made across various forks into a single release that represents the "most up to date version" possible. Changes are reviewed and manually merged from forks of the original nvidiaProfileInspector repo found on GitHub.
 
+If you would like to contribute directly - or take over this project - please reach out! I am not a C# developer, just an enthusiast who knows enough to resolve merge conflicts.
 
 **Original README body:**
 
