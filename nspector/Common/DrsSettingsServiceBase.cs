@@ -217,9 +217,9 @@ namespace nspector.Common
 
         protected void AddApplication(IntPtr hSession, IntPtr hProfile, string applicationName)
         {
-            var newApp = new NVDRS_APPLICATION_V3()
+            var newApp = new NVDRS_APPLICATION_V4
             {
-                version = nvw.NVDRS_APPLICATION_VER_V3,
+                version = nvw.NVDRS_APPLICATION_VER,
                 appName = applicationName,
             };
 
@@ -229,7 +229,7 @@ namespace nspector.Common
 
         }
 
-        protected void DeleteApplication(IntPtr hSession, IntPtr hProfile, NVDRS_APPLICATION_V3 application)
+        protected void DeleteApplication(IntPtr hSession, IntPtr hProfile, NVDRS_APPLICATION_V4 application)
         {
             var caRes = nvw.DRS_DeleteApplicationEx(hSession, hProfile, ref application);
             if (caRes != NvAPI_Status.NVAPI_OK)
@@ -287,21 +287,29 @@ namespace nspector.Common
             return [.. settings];
         }
 
-        protected List<NVDRS_APPLICATION_V3> GetProfileApplications(IntPtr hSession, IntPtr hProfile)
+        protected List<NVDRS_APPLICATION_V4> GetProfileApplications(IntPtr hSession, IntPtr hProfile)
         {
-            uint appCount = 512;
-            var apps = new NVDRS_APPLICATION_V3[512];
-            apps[0].version = NvapiDrsWrapper.NVDRS_APPLICATION_VER_V3;
+            uint appCount = 2;
+            var result = new List<NVDRS_APPLICATION_V4>();
+            var buf = new NVDRS_APPLICATION_V4[appCount];
+            buf[0].version = NvapiDrsWrapper.NVDRS_APPLICATION_VER;
 
-            var esRes = NvapiDrsWrapper.DRS_EnumApplications(hSession, hProfile, 0, ref appCount, ref apps);
+            NvAPI_Status esRes;
+            do
+            {
+                appCount = (uint)buf.Length;
+                esRes = NvapiDrsWrapper.DRS_EnumApplications(hSession, hProfile, (uint)result.Count, ref appCount, ref buf);
+                if (esRes is NvAPI_Status.NVAPI_OK)
+                    result.AddRange(buf.Take((int)appCount));
+            } while (esRes is NvAPI_Status.NVAPI_OK && appCount == buf.Length);
 
             if (esRes == NvAPI_Status.NVAPI_END_ENUMERATION)
-                return [];
+                return result;
 
             if (esRes != NvAPI_Status.NVAPI_OK)
                 throw new NvapiException("DRS_EnumApplications", esRes);
 
-            return [.. apps];
+            return result;
         }
 
         protected void SaveSettings(IntPtr hSession)
