@@ -6753,5 +6753,26 @@
       </SettingValues>
       <SettingMasks/>
     </CustomSetting>
+
+    <!-- 
+      MPO Indicator, sourced from Soliver84's massive Reference.xml version: 
+      https://forums.guru3d.com/threads/nvidia-profile-inspector-crazy-all-nvida-stetings-reference-file.448873/#post-6176940
+    -->
+    <CustomSetting>
+      <UserfriendlyName>MPO_INDICATOR</UserfriendlyName>
+      <HexSettingID>0x00A88888</HexSettingID>
+      <GroupName>8 - Extra</GroupName>
+      <MinRequiredDriverVersion>0</MinRequiredDriverVersion>
+      <SettingValues>
+          <CustomSettingValue>
+              <UserfriendlyName>MPO_INDICATOR_OFF</UserfriendlyName>
+              <HexValue>0</HexValue>
+          </CustomSettingValue>
+          <CustomSettingValue>
+              <UserfriendlyName>MPO_INDICATOR_ON</UserfriendlyName>
+              <HexValue>1</HexValue>
+          </CustomSettingValue>
+      </SettingValues>
+  </CustomSetting>
   </Settings>
 </CustomSettingNames>
